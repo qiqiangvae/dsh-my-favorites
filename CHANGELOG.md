@@ -2,6 +2,25 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.3.0] - 2026-08-24
+
+### Added
+
+- 会话切换器新增「最近模式」：在设置中可切换为「最近的 N 个会话」而非「收藏的会话」。
+  - 排序源为浏览器内 LRU（最近访问），切换会话即时反映顺序；冷启动时以宿主 `updatedAt` 倒序兜底。
+  - N 可配置（数字输入，范围 5–20，默认 10，失焦/回车自动 clamp 到边界）。
+  - 过滤空会话（blank）与子 agent 会话（origin=subagent），仅保留可切换的顶层会话。
+  - 边界场景（无目标可切）弹出短暂 toast 提示。
+
+### Changed
+
+- 设置页拆分为「会话切换」与「网址设置」两部分。
+- 提取 `MIN_RECENT` / `MAX_RECENT` / `DEFAULT_RECENT` 常量到 `src/constants.ts`，作为边界值的单一事实来源。
+
+### Removed
+
+- 移除未使用的 `@deepseek-ai/cordis` 依赖（代码中无引用）。
+
 ## [0.2.0] - 2026-08-24
 
 ### Added
