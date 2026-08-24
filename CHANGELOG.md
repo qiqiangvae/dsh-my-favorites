@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.3.1] - 2026-08-24
+
+### Fixed
+
+- 侧边栏收起（折叠为 56px rail）后，收藏网址标签与「★ 会话 (N)」收藏夹仍以展开态渲染，文字横排挤压、与图标列错位。现改为消费宿主槽位下发的 `wide` 状态：折叠时不渲染任何收藏内容，并隐藏空容器避免残留间距；展开后恢复原样。
+
 ## [0.3.0] - 2026-08-24
 
 ### Added

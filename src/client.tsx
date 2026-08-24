@@ -59,9 +59,13 @@ function SessionFolder({ sessions, scope, useSessions, openSession }: any) {
 
 function FavoritesLauncher({ scope, useSessions, openSession }: any) { const value = useSettings(scope); return <div className="mf-favorites"><UrlTags urls={value.urls} /><SessionFolder sessions={value.sessions} scope={scope} useSessions={useSessions} openSession={openSession} /></div>; }
 
-function SidebarBelowNewSessionBridge({ scope, useSessions, openSession }: any) {
+function SidebarBelowNewSessionBridge({ scope, useSessions, openSession, wide }: any) {
   const [host, setHost] = useState<HTMLElement | null>(null);
   useEffect(() => { const candidates = [...document.querySelectorAll<HTMLButtonElement>('button[aria-label="新建会话"], button[aria-label="New session"]')]; const newSession = candidates.find((button) => button.className.includes('newSession')); if (!newSession?.parentElement) return; const container = document.createElement('div'); container.className = 'mf-belowNewSessionBridge'; newSession.insertAdjacentElement('afterend', container); setHost(container); return () => container.remove(); }, []);
+  // 侧边栏折叠（rail，宽 56px）时同步切换宿主容器显隐，整体隐藏收藏网址标签与会话收藏夹，并清除空 div 残留的间距。
+  useEffect(() => { if (host) host.style.display = wide ? '' : 'none'; }, [host, wide]);
+  // 折叠态直接不渲染任何内容。
+  if (!wide) return null;
   return host ? ReactDOM.createPortal(<FavoritesLauncher scope={scope} useSessions={useSessions} openSession={openSession} />, host) : null;
 }
 
