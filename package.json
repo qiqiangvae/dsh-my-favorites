@@ -1,6 +1,6 @@
 {
   "name": "dsh-my-favorites",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Session and URL favorites for DeepSeek Harness Desktop",
   "license": "MIT",
   "type": "module",
