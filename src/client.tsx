@@ -1,0 +1,72 @@
+import React, { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import * as ReactDOM from 'react-dom';
+
+export const NS = 'my-favorites';
+
+export type SessionFavorite = { id: string; title: string };
+export type UrlFavorite = { id: string; name: string; url: string; icon: string; useFavicon: boolean };
+type SettingsValue = { sessions: SessionFavorite[]; urls: UrlFavorite[] };
+type Scope = { getSnapshot(): { value?: SettingsValue }; subscribe(listener: () => void): () => void; set(field: 'sessions' | 'urls', value: unknown): Promise<void> };
+
+const STYLE_ID = 'dsh-my-favorites';
+
+function ensureStyles() {
+  if (document.querySelector(`style[data-plugin="${STYLE_ID}"]`)) return () => {};
+  const style = document.createElement('style'); style.dataset.plugin = STYLE_ID;
+  style.textContent = `
+.mf-headerButton,.mf-iconButton,.mf-urlTag,.mf-folderButton,.mf-sessionButton{border:0;background:transparent;color:var(--dsw-alias-label-secondary,#697586);font:inherit;cursor:pointer}.mf-headerButton,.mf-iconButton{align-items:center;justify-content:center;display:inline-flex;border-radius:7px;width:30px;height:30px}.mf-headerButton:hover,.mf-iconButton:hover,.mf-urlTag:hover{background:var(--dsw-alias-bg-layer-2,rgba(0,0,0,.07));color:var(--dsw-alias-label-primary,#1f2329)}.mf-folderButton:hover,.mf-sessionButton:hover{background:transparent;color:var(--dsw-alias-label-primary,#1f2329)}.mf-headerButton[data-active=true]{color:#e7a100}.mf-belowNewSessionBridge{position:relative;padding:4px 8px;margin:4px 0}.mf-favorites{display:flex;flex-direction:column;gap:6px}.mf-urlTags{display:flex;flex-wrap:wrap;gap:6px}.mf-urlTag{align-items:center;justify-content:center;border:1px solid var(--dsw-alias-border-l2,#d9dce1);border-radius:7px;display:inline-flex;min-width:30px;max-width:72px;height:30px;padding:0 7px;overflow:hidden;font-size:12px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}.mf-favicon{width:16px;height:16px;object-fit:contain;flex:none}.mf-folderButton{align-items:center;gap:6px;border:0;border-radius:7px;display:flex;width:100%;min-height:38px;padding:7px 10px;font-size:13px;font-weight:600;text-align:left}.mf-caret{display:inline-block;transition:transform .14s}.mf-folderButton[data-open=true] .mf-caret{transform:rotate(90deg)}.mf-sessionFolder{display:flex;flex-direction:column;gap:5px;max-height:240px;overflow:auto;padding:2px 0 2px}.mf-sessionRow{align-items:center;display:flex;gap:2px;border-radius:7px}.mf-sessionRow[data-drag-ready=true]{cursor:grab}.mf-sessionRow[data-dragging=true]{opacity:.45}.mf-sessionRow[data-drop-target=true]{box-shadow:inset 0 2px 0 var(--dsw-alias-brand-primary,#2468f2)}.mf-sessionButton{flex:1;min-width:0;overflow:hidden;padding:7px 8px;text-align:left;text-overflow:ellipsis;white-space:nowrap;font-size:12px}.mf-invalid{color:var(--dsw-alias-label-tertiary,#9aa4b2);text-decoration:line-through}.mf-remove{color:var(--dsw-alias-label-tertiary,#9aa4b2);flex:none;opacity:0;pointer-events:none;transition:opacity .12s}.mf-sessionRow:hover .mf-remove,.mf-sessionRow:focus-within .mf-remove{opacity:1;pointer-events:auto}.mf-empty{color:var(--dsw-alias-label-tertiary,#9aa4b2);font-size:12px;line-height:1.5;padding:7px 8px}.mf-settings{max-width:760px;display:flex;flex-direction:column;gap:16px}.mf-settings h2{margin:0}.mf-card{border:1px solid var(--dsw-alias-border-l2,#d9dce1);border-radius:12px;padding:16px}.mf-form{grid-template-columns:1.1fr 2fr 1fr auto auto}.mf-urlRow{grid-template-columns:1.1fr 2fr 1fr auto auto auto}.mf-form{margin-top:12px}.mf-field{border:1px solid var(--dsw-alias-border-l2,#c9cdd4);border-radius:7px;background:transparent;color:inherit;padding:7px 8px;font:inherit;min-width:0}.mf-primary{border:0;border-radius:7px;background:var(--dsw-alias-brand-primary,#2468f2);color:white;padding:8px 12px;cursor:pointer}.mf-danger{color:#d03050}.mf-urlList{display:flex;flex-direction:column;gap:8px;margin-top:12px}.mf-error{color:#d03050;font-size:12px;margin:8px 0 0}@media(max-width:600px){.mf-form,.mf-urlRow{grid-template-columns:1fr}}
+`;
+  document.head.append(style); return () => style.remove();
+}
+
+function useSettings(scope: Scope): SettingsValue { const snapshot = useSyncExternalStore(scope.subscribe.bind(scope), scope.getSnapshot.bind(scope)); return snapshot.value ?? { sessions: [], urls: [] }; }
+function sessionTitle(session: any, fallback: string) { return session?.displayTitle ?? session?.title ?? fallback; }
+function validUrl(value: string) { try { return ['http:', 'https:', 'mailto:'].includes(new URL(value).protocol); } catch { return false; } }
+function Star({ filled }: { filled: boolean }) { return <span aria-hidden="true">{filled ? '★' : '☆'}</span>; }
+
+function FavoriteToggle({ sessionId, useSessions, scope }: any) {
+  const value = useSettings(scope); const favorite = value.sessions.find((item) => item.id === sessionId);
+  const liveTitle = useSessions((state: any) => sessionTitle(state.byId?.[sessionId], sessionId)); const title = liveTitle === sessionId ? favorite?.title ?? sessionId : liveTitle;
+  const toggle = () => scope.set('sessions', favorite ? value.sessions.filter((item) => item.id !== sessionId) : [...value.sessions, { id: sessionId, title }]);
+  return <button className="mf-headerButton" data-active={Boolean(favorite)} type="button" onClick={toggle} title={favorite ? '取消收藏会话' : '收藏会话'} aria-label={favorite ? '取消收藏会话' : '收藏会话'}><Star filled={Boolean(favorite)} /></button>;
+}
+
+function faviconUrl(value: string) { try { const parsed = new URL(value); return `${parsed.protocol}//${parsed.host}/favicon.ico`; } catch { return ''; } }
+function UrlTag({ item }: { item: UrlFavorite }) {
+  const [faviconFailed, setFaviconFailed] = useState(false);
+  const favicon = item.useFavicon && !faviconFailed ? faviconUrl(item.url) : '';
+  const fallback = item.icon || item.name;
+  return <button className="mf-urlTag" type="button" title={`${item.name}\n${item.url}`} aria-label={`打开网址：${item.name}`} onClick={() => { if (validUrl(item.url)) window.open(item.url, '_blank', 'noopener,noreferrer'); }}>{favicon ? <img className="mf-favicon" src={favicon} alt="" onError={() => setFaviconFailed(true)} /> : fallback}</button>;
+}
+function UrlTags({ urls }: { urls: UrlFavorite[] }) {
+  if (!urls.length) return null;
+  return <div className="mf-urlTags" aria-label="收藏网址">{urls.map((item) => <UrlTag key={item.id} item={item} />)}</div>;
+}
+
+function SessionFolder({ sessions, scope, useSessions, openSession }: any) {
+  const [open, setOpen] = useState(false); const [commandDown, setCommandDown] = useState(false); const [dragging, setDragging] = useState<string | null>(null); const [target, setTarget] = useState<string | null>(null);
+  const roster = useSessions((state: any) => state.byId ?? {});
+  useEffect(() => { const down = (event: KeyboardEvent) => setCommandDown(event.metaKey); const up = () => setCommandDown(false); window.addEventListener('keydown', down); window.addEventListener('keyup', up); window.addEventListener('blur', up); return () => { window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', up); }; }, []);
+  const reorder = async (sourceId: string, targetId: string) => { if (sourceId === targetId) return; const next = [...sessions]; const source = next.findIndex((item) => item.id === sourceId); const destination = next.findIndex((item) => item.id === targetId); if (source < 0 || destination < 0) return; const [item] = next.splice(source, 1); next.splice(destination, 0, item); await scope.set('sessions', next); };
+  return <div><button className="mf-folderButton" data-open={open} type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open}><span className="mf-caret" aria-hidden="true">›</span><span>★ 会话 ({sessions.length})</span></button>{open && <div className="mf-sessionFolder" aria-label="收藏会话">{sessions.length === 0 ? <div className="mf-empty">尚未收藏会话；在会话标题栏点击 ☆ 收藏当前会话。</div> : sessions.map((item: SessionFavorite) => { const live = roster[item.id]; const title = sessionTitle(live, item.title); const invalid = !live; const dragReady = commandDown; return <div className="mf-sessionRow" key={item.id} data-drag-ready={dragReady} data-dragging={dragging === item.id} data-drop-target={target === item.id} draggable={dragReady} title={dragReady ? '按住 ⌘ 拖动以排序' : undefined} onDragStart={(event) => { if (!commandDown) { event.preventDefault(); return; } event.dataTransfer.effectAllowed = 'move'; event.dataTransfer.setData('text/plain', item.id); setDragging(item.id); }} onDragOver={(event) => { if (!dragging || dragging === item.id) return; event.preventDefault(); event.dataTransfer.dropEffect = 'move'; setTarget(item.id); }} onDrop={(event) => { event.preventDefault(); const source = event.dataTransfer.getData('text/plain'); if (source) reorder(source, item.id); setDragging(null); setTarget(null); }} onDragEnd={() => { setDragging(null); setTarget(null); }}><button className={`mf-sessionButton ${invalid ? 'mf-invalid' : ''}`} type="button" disabled={invalid} title={invalid ? `${item.title}（已失效）` : title} onClick={() => { openSession(item.id); }}>{invalid ? `${item.title}（已失效）` : title}</button><button className="mf-iconButton mf-remove" type="button" title="移除收藏" aria-label={`移除收藏：${item.title}`} onClick={() => scope.set('sessions', sessions.filter((entry: SessionFavorite) => entry.id !== item.id))}>×</button></div>; })}</div>}</div>;
+}
+
+function FavoritesLauncher({ scope, useSessions, openSession }: any) { const value = useSettings(scope); return <div className="mf-favorites"><UrlTags urls={value.urls} /><SessionFolder sessions={value.sessions} scope={scope} useSessions={useSessions} openSession={openSession} /></div>; }
+
+function SidebarBelowNewSessionBridge({ scope, useSessions, openSession }: any) {
+  const [host, setHost] = useState<HTMLElement | null>(null);
+  useEffect(() => { const candidates = [...document.querySelectorAll<HTMLButtonElement>('button[aria-label="新建会话"], button[aria-label="New session"]')]; const newSession = candidates.find((button) => button.className.includes('newSession')); if (!newSession?.parentElement) return; const container = document.createElement('div'); container.className = 'mf-belowNewSessionBridge'; newSession.insertAdjacentElement('afterend', container); setHost(container); return () => container.remove(); }, []);
+  return host ? ReactDOM.createPortal(<FavoritesLauncher scope={scope} useSessions={useSessions} openSession={openSession} />, host) : null;
+}
+
+function UrlSettingsCard({ scope }: { scope: Scope }) {
+  const value = useSettings(scope); const [draft, setDraft] = useState({ name: '', url: '', icon: '', useFavicon: false }); const [error, setError] = useState('');
+  const add = async () => { if (!draft.name.trim()) return setError('请填写名称。'); if (!validUrl(draft.url.trim())) return setError('网址仅支持 http、https 或 mailto。'); await scope.set('urls', [...value.urls, { id: crypto.randomUUID(), name: draft.name.trim(), url: draft.url.trim(), icon: draft.icon.trim(), useFavicon: draft.useFavicon }]); setDraft({ name: '', url: '', icon: '', useFavicon: false }); setError(''); };
+  const update = (id: string, patch: Partial<UrlFavorite>) => scope.set('urls', value.urls.map((entry) => entry.id === id ? { ...entry, ...patch } : entry));
+  const move = (index: number, direction: -1 | 1) => { const target = index + direction; if (target < 0 || target >= value.urls.length) return; const next = [...value.urls]; [next[index], next[target]] = [next[target], next[index]]; scope.set('urls', next); };
+  const fields = (item: UrlFavorite, patch: (patch: Partial<UrlFavorite>) => void) => <><input className="mf-field" aria-label="名称" value={item.name} onChange={(e) => patch({ name: e.target.value })}/><input className="mf-field" aria-label="网址" value={item.url} onChange={(e) => patch({ url: e.target.value })}/><input className="mf-field" aria-label="自定义图标" placeholder="自定义 icon" value={item.icon} onChange={(e) => patch({ icon: e.target.value })}/><label title="使用 {协议}://{域名}/favicon.ico；加载失败时回退为自定义 icon 或名称"><input type="checkbox" checked={item.useFavicon} onChange={(e) => patch({ useFavicon: e.target.checked })}/> 使用网站图标</label></>;
+  return <section className="mf-settings"><div><h2>收藏</h2><p>网址标签展示优先级：网站图标 → 自定义 icon → 名称。</p></div><div className="mf-card"><strong>收藏网址</strong><div className="mf-urlList">{value.urls.map((item, index) => <div className="mf-urlRow" key={item.id}>{fields(item, (patch) => update(item.id, patch))}<button className="mf-iconButton" type="button" onClick={() => move(index, -1)} disabled={index === 0}>↑</button><button className="mf-iconButton mf-danger" type="button" onClick={() => scope.set('urls', value.urls.filter((entry) => entry.id !== item.id))}>×</button></div>)}</div><div className="mf-form"><input className="mf-field" placeholder="名称" value={draft.name} onChange={(e) => setDraft({ ...draft, name: e.target.value })}/><input className="mf-field" placeholder="https://example.com" value={draft.url} onChange={(e) => setDraft({ ...draft, url: e.target.value })}/><input className="mf-field" placeholder="自定义 icon（可选）" value={draft.icon} onChange={(e) => setDraft({ ...draft, icon: e.target.value })}/><label title="使用网站自己的 favicon"><input type="checkbox" checked={draft.useFavicon} onChange={(e) => setDraft({ ...draft, useFavicon: e.target.checked })}/> 使用网站图标</label><button className="mf-primary" type="button" onClick={add}>添加</button></div>{error && <div className="mf-error">{error}</div>}</div></section>;
+}
+
+export const inject = ['slots', 'settingsScope', 'sessions'];
+export function apply(ctx: any) { const scope: Scope = ctx.settingsScope.bind({ namespace: NS }); ctx.effect(() => ensureStyles(), 'my-favorites: styles'); ctx.slots.inject('conversation.session.header.actions', () => ctx.slots.register({ name: 'conversation.session.header.actions', id: 'my-favorites-toggle', order: -5, inject: () => ({ scope }) }, FavoriteToggle)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-below-new-session-bridge', order: 5, inject: () => ({ scope, openSession: (id: string) => ctx.sessions.open(id) }) }, SidebarBelowNewSessionBridge)); ctx.slots.inject('settings.plugins.tab', () => ctx.slots.register({ name: 'settings.plugins.tab', id: 'my-favorites', order: 30, label: () => '收藏', inject: () => ({ scope }) }, UrlSettingsCard)); }
