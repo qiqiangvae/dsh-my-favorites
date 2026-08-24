@@ -14,7 +14,7 @@ function ensureStyles() {
   if (document.querySelector(`style[data-plugin="${STYLE_ID}"]`)) return () => {};
   const style = document.createElement('style'); style.dataset.plugin = STYLE_ID;
   style.textContent = `
-.mf-headerButton,.mf-iconButton,.mf-urlTag,.mf-folderButton,.mf-sessionButton{border:0;background:transparent;color:var(--dsw-alias-label-secondary,#697586);font:inherit;cursor:pointer}.mf-headerButton,.mf-iconButton{align-items:center;justify-content:center;display:inline-flex;border-radius:7px;width:30px;height:30px}.mf-headerButton:hover,.mf-iconButton:hover,.mf-urlTag:hover{background:var(--dsw-alias-bg-layer-2,rgba(0,0,0,.07));color:var(--dsw-alias-label-primary,#1f2329)}.mf-folderButton:hover,.mf-sessionButton:hover{background:transparent;color:var(--dsw-alias-label-primary,#1f2329)}.mf-headerButton[data-active=true]{color:#e7a100}.mf-belowNewSessionBridge{position:relative;padding:4px 8px;margin:4px 0}.mf-favorites{display:flex;flex-direction:column;gap:6px}.mf-urlTags{display:flex;flex-wrap:wrap;gap:6px}.mf-urlTag{align-items:center;justify-content:center;border:1px solid var(--dsw-alias-border-l2,#d9dce1);border-radius:7px;display:inline-flex;min-width:30px;max-width:72px;height:30px;padding:0 7px;overflow:hidden;font-size:12px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}.mf-favicon{width:16px;height:16px;object-fit:contain;flex:none}.mf-folderButton{align-items:center;gap:6px;border:0;border-radius:7px;display:flex;width:100%;min-height:38px;padding:7px 10px;font-size:13px;font-weight:600;text-align:left}.mf-caret{display:inline-block;transition:transform .14s}.mf-folderButton[data-open=true] .mf-caret{transform:rotate(90deg)}.mf-sessionFolder{display:flex;flex-direction:column;gap:5px;max-height:240px;overflow:auto;padding:2px 0 2px}.mf-sessionRow{align-items:center;display:flex;gap:2px;border-radius:7px}.mf-sessionRow[data-drag-ready=true]{cursor:grab}.mf-sessionRow[data-dragging=true]{opacity:.45}.mf-sessionRow[data-drop-target=true]{box-shadow:inset 0 2px 0 var(--dsw-alias-brand-primary,#2468f2)}.mf-sessionButton{flex:1;min-width:0;overflow:hidden;padding:7px 8px;text-align:left;text-overflow:ellipsis;white-space:nowrap;font-size:12px}.mf-invalid{color:var(--dsw-alias-label-tertiary,#9aa4b2);text-decoration:line-through}.mf-remove{color:var(--dsw-alias-label-tertiary,#9aa4b2);flex:none;opacity:0;pointer-events:none;transition:opacity .12s}.mf-sessionRow:hover .mf-remove,.mf-sessionRow:focus-within .mf-remove{opacity:1;pointer-events:auto}.mf-empty{color:var(--dsw-alias-label-tertiary,#9aa4b2);font-size:12px;line-height:1.5;padding:7px 8px}.mf-settings{max-width:760px;display:flex;flex-direction:column;gap:16px}.mf-settings h2{margin:0}.mf-card{border:1px solid var(--dsw-alias-border-l2,#d9dce1);border-radius:12px;padding:16px}.mf-form{grid-template-columns:1.1fr 2fr 1fr auto auto}.mf-urlRow{grid-template-columns:1.1fr 2fr 1fr auto auto auto}.mf-form{margin-top:12px}.mf-field{border:1px solid var(--dsw-alias-border-l2,#c9cdd4);border-radius:7px;background:transparent;color:inherit;padding:7px 8px;font:inherit;min-width:0}.mf-primary{border:0;border-radius:7px;background:var(--dsw-alias-brand-primary,#2468f2);color:white;padding:8px 12px;cursor:pointer}.mf-danger{color:#d03050}.mf-urlList{display:flex;flex-direction:column;gap:8px;margin-top:12px}.mf-error{color:#d03050;font-size:12px;margin:8px 0 0}@media(max-width:600px){.mf-form,.mf-urlRow{grid-template-columns:1fr}}
+.mf-headerButton,.mf-iconButton,.mf-urlTag,.mf-folderButton,.mf-sessionButton{border:0;background:transparent;color:var(--dsw-alias-label-secondary,#697586);font:inherit;cursor:pointer}.mf-headerButton,.mf-iconButton{align-items:center;justify-content:center;display:inline-flex;border-radius:7px;width:30px;height:30px}.mf-headerButton:hover,.mf-iconButton:hover,.mf-urlTag:hover{background:var(--dsw-alias-bg-layer-2,rgba(0,0,0,.07));color:var(--dsw-alias-label-primary,#1f2329)}.mf-folderButton:hover,.mf-sessionButton:hover{background:transparent;color:var(--dsw-alias-label-primary,#1f2329)}.mf-headerButton[data-active=true]{color:#e7a100}.mf-belowNewSessionBridge{position:relative;padding:4px 8px;margin:4px 0}.mf-favorites{display:flex;flex-direction:column;gap:6px}.mf-urlTags{display:flex;flex-wrap:wrap;gap:6px}.mf-urlTag{align-items:center;justify-content:center;border:1px solid var(--dsw-alias-border-l2,#d9dce1);border-radius:7px;display:inline-flex;min-width:30px;max-width:72px;height:30px;padding:0 7px;overflow:hidden;font-size:12px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}.mf-favicon{width:16px;height:16px;object-fit:contain;flex:none}.mf-folderButton{align-items:center;gap:6px;border:0;border-radius:7px;display:flex;width:100%;min-height:38px;padding:7px 10px;font-size:13px;font-weight:600;text-align:left}.mf-caret{display:inline-block;transition:transform .14s}.mf-folderButton[data-open=true] .mf-caret{transform:rotate(90deg)}.mf-sessionFolder{display:flex;flex-direction:column;gap:5px;max-height:240px;overflow:auto;padding:2px 0 2px}.mf-sessionRow{align-items:center;display:flex;gap:2px;border-radius:7px}.mf-sessionRow[data-drag-ready=true]{cursor:grab}.mf-sessionRow[data-dragging=true]{opacity:.45}.mf-sessionRow[data-drop-target=true]{box-shadow:inset 0 2px 0 var(--dsw-alias-brand-primary,#2468f2)}.mf-sessionRow[data-active=true]{box-shadow:inset 2px 0 0 var(--dsw-alias-brand-primary,#2468f2)}.mf-sessionRow[data-active=true] .mf-sessionButton{color:var(--dsw-alias-brand-primary,#2468f2);font-weight:600}.mf-sessionButton{flex:1;min-width:0;overflow:hidden;padding:7px 8px;text-align:left;text-overflow:ellipsis;white-space:nowrap;font-size:12px}.mf-switcher-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.32);display:flex;align-items:center;justify-content:center}.mf-switcher-panel{background:var(--dsw-alias-bg-layer-2,#fff);border:1px solid var(--dsw-alias-border-l2,#d9dce1);border-radius:12px;min-width:320px;max-width:560px;max-height:60vh;display:flex;flex-direction:column;box-shadow:0 12px 40px rgba(0,0,0,.22);overflow:hidden}.mf-switcher-head{padding:12px 16px;border-bottom:1px solid var(--dsw-alias-border-l2,#d9dce1)}.mf-switcher-head strong{display:block;font-size:13px;color:var(--dsw-alias-label-primary,#1f2329);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mf-switcher-head small{display:block;margin-top:2px;font-size:11px;color:var(--dsw-alias-label-secondary,#697586);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mf-switcher-list{display:flex;flex-direction:column;padding:6px;overflow-y:auto}.mf-switcher-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:7px;font-size:13px;color:var(--dsw-alias-label-primary,#1f2329);cursor:pointer}.mf-switcher-item[data-active=true]{background:var(--dsw-alias-brand-primary,#2468f2);color:#fff}.mf-switcher-item[data-anchor=true]{opacity:.62}.mf-switcher-item .mf-switcher-title{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mf-switcher-hint{padding:8px 16px;border-top:1px solid var(--dsw-alias-border-l2,#d9dce1);font-size:11px;color:var(--dsw-alias-label-secondary,#697586)}.mf-invalid{color:var(--dsw-alias-label-tertiary,#9aa4b2);text-decoration:line-through}.mf-remove{color:var(--dsw-alias-label-tertiary,#9aa4b2);flex:none;opacity:0;pointer-events:none;transition:opacity .12s}.mf-sessionRow:hover .mf-remove,.mf-sessionRow:focus-within .mf-remove{opacity:1;pointer-events:auto}.mf-empty{color:var(--dsw-alias-label-tertiary,#9aa4b2);font-size:12px;line-height:1.5;padding:7px 8px}.mf-settings{max-width:760px;display:flex;flex-direction:column;gap:16px}.mf-settings h2{margin:0}.mf-card{border:1px solid var(--dsw-alias-border-l2,#d9dce1);border-radius:12px;padding:16px}.mf-form{display:grid;grid-template-columns:1.1fr 2fr 1fr auto auto;gap:8px;align-items:center;margin-top:12px}.mf-urlRow{display:grid;grid-template-columns:1.1fr 2fr 1fr auto auto auto;gap:8px;align-items:center}.mf-field{border:1px solid var(--dsw-alias-border-l2,#c9cdd4);border-radius:7px;background:transparent;color:inherit;padding:7px 8px;font:inherit;min-width:0}.mf-primary{border:0;border-radius:7px;background:var(--dsw-alias-brand-primary,#2468f2);color:white;padding:8px 12px;cursor:pointer}.mf-danger{color:#d03050}.mf-urlList{display:flex;flex-direction:column;gap:8px;margin-top:12px}.mf-error{color:#d03050;font-size:12px;margin:8px 0 0}@media(max-width:600px){.mf-form,.mf-urlRow{grid-template-columns:1fr}}
 `;
   document.head.append(style); return () => style.remove();
 }
@@ -46,9 +46,10 @@ function UrlTags({ urls }: { urls: UrlFavorite[] }) {
 function SessionFolder({ sessions, scope, useSessions, openSession }: any) {
   const [open, setOpen] = useState(false); const [commandDown, setCommandDown] = useState(false); const [dragging, setDragging] = useState<string | null>(null); const [target, setTarget] = useState<string | null>(null);
   const roster = useSessions((state: any) => state.byId ?? {});
+  const current = useSessions((state: any) => state.current as string | undefined);
   useEffect(() => { const down = (event: KeyboardEvent) => setCommandDown(event.metaKey); const up = () => setCommandDown(false); window.addEventListener('keydown', down); window.addEventListener('keyup', up); window.addEventListener('blur', up); return () => { window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', up); }; }, []);
   const reorder = async (sourceId: string, targetId: string) => { if (sourceId === targetId) return; const next = [...sessions]; const source = next.findIndex((item) => item.id === sourceId); const destination = next.findIndex((item) => item.id === targetId); if (source < 0 || destination < 0) return; const [item] = next.splice(source, 1); next.splice(destination, 0, item); await scope.set('sessions', next); };
-  return <div><button className="mf-folderButton" data-open={open} type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open}><span className="mf-caret" aria-hidden="true">›</span><span>★ 会话 ({sessions.length})</span></button>{open && <div className="mf-sessionFolder" aria-label="收藏会话">{sessions.length === 0 ? <div className="mf-empty">尚未收藏会话；在会话标题栏点击 ☆ 收藏当前会话。</div> : sessions.map((item: SessionFavorite) => { const live = roster[item.id]; const title = sessionTitle(live, item.title); const invalid = !live; const dragReady = commandDown; return <div className="mf-sessionRow" key={item.id} data-drag-ready={dragReady} data-dragging={dragging === item.id} data-drop-target={target === item.id} draggable={dragReady} title={dragReady ? '按住 ⌘ 拖动以排序' : undefined} onDragStart={(event) => { if (!commandDown) { event.preventDefault(); return; } event.dataTransfer.effectAllowed = 'move'; event.dataTransfer.setData('text/plain', item.id); setDragging(item.id); }} onDragOver={(event) => { if (!dragging || dragging === item.id) return; event.preventDefault(); event.dataTransfer.dropEffect = 'move'; setTarget(item.id); }} onDrop={(event) => { event.preventDefault(); const source = event.dataTransfer.getData('text/plain'); if (source) reorder(source, item.id); setDragging(null); setTarget(null); }} onDragEnd={() => { setDragging(null); setTarget(null); }}><button className={`mf-sessionButton ${invalid ? 'mf-invalid' : ''}`} type="button" disabled={invalid} title={invalid ? `${item.title}（已失效）` : title} onClick={() => { openSession(item.id); }}>{invalid ? `${item.title}（已失效）` : title}</button><button className="mf-iconButton mf-remove" type="button" title="移除收藏" aria-label={`移除收藏：${item.title}`} onClick={() => scope.set('sessions', sessions.filter((entry: SessionFavorite) => entry.id !== item.id))}>×</button></div>; })}</div>}</div>;
+  return <div><button className="mf-folderButton" data-open={open} type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open}><span className="mf-caret" aria-hidden="true">›</span><span>★ 会话 ({sessions.length})</span></button>{open && <div className="mf-sessionFolder" aria-label="收藏会话">{sessions.length === 0 ? <div className="mf-empty">尚未收藏会话；在会话标题栏点击 ☆ 收藏当前会话。</div> : sessions.map((item: SessionFavorite) => { const live = roster[item.id]; const title = sessionTitle(live, item.title); const invalid = !live; const dragReady = commandDown; return <div className="mf-sessionRow" key={item.id} data-active={item.id === current} data-drag-ready={dragReady} data-dragging={dragging === item.id} data-drop-target={target === item.id} draggable={dragReady} title={dragReady ? '按住 ⌘ 拖动以排序' : undefined} onDragStart={(event) => { if (!commandDown) { event.preventDefault(); return; } event.dataTransfer.effectAllowed = 'move'; event.dataTransfer.setData('text/plain', item.id); setDragging(item.id); }} onDragOver={(event) => { if (!dragging || dragging === item.id) return; event.preventDefault(); event.dataTransfer.dropEffect = 'move'; setTarget(item.id); }} onDrop={(event) => { event.preventDefault(); const source = event.dataTransfer.getData('text/plain'); if (source) reorder(source, item.id); setDragging(null); setTarget(null); }} onDragEnd={() => { setDragging(null); setTarget(null); }}><button className={`mf-sessionButton ${invalid ? 'mf-invalid' : ''}`} type="button" disabled={invalid} title={invalid ? `${item.title}（已失效）` : title} onClick={() => { openSession(item.id); }}>{invalid ? `${item.title}（已失效）` : title}</button><button className="mf-iconButton mf-remove" type="button" title="移除收藏" aria-label={`移除收藏：${item.title}`} onClick={() => scope.set('sessions', sessions.filter((entry: SessionFavorite) => entry.id !== item.id))}>×</button></div>; })}</div>}</div>;
 }
 
 function FavoritesLauncher({ scope, useSessions, openSession }: any) { const value = useSettings(scope); return <div className="mf-favorites"><UrlTags urls={value.urls} /><SessionFolder sessions={value.sessions} scope={scope} useSessions={useSessions} openSession={openSession} /></div>; }
@@ -68,5 +69,203 @@ function UrlSettingsCard({ scope }: { scope: Scope }) {
   return <section className="mf-settings"><div><h2>收藏</h2><p>网址标签展示优先级：网站图标 → 自定义 icon → 名称。</p></div><div className="mf-card"><strong>收藏网址</strong><div className="mf-urlList">{value.urls.map((item, index) => <div className="mf-urlRow" key={item.id}>{fields(item, (patch) => update(item.id, patch))}<button className="mf-iconButton" type="button" onClick={() => move(index, -1)} disabled={index === 0}>↑</button><button className="mf-iconButton mf-danger" type="button" onClick={() => scope.set('urls', value.urls.filter((entry) => entry.id !== item.id))}>×</button></div>)}</div><div className="mf-form"><input className="mf-field" placeholder="名称" value={draft.name} onChange={(e) => setDraft({ ...draft, name: e.target.value })}/><input className="mf-field" placeholder="https://example.com" value={draft.url} onChange={(e) => setDraft({ ...draft, url: e.target.value })}/><input className="mf-field" placeholder="自定义 icon（可选）" value={draft.icon} onChange={(e) => setDraft({ ...draft, icon: e.target.value })}/><label title="使用网站自己的 favicon"><input type="checkbox" checked={draft.useFavicon} onChange={(e) => setDraft({ ...draft, useFavicon: e.target.checked })}/> 使用网站图标</label><button className="mf-primary" type="button" onClick={add}>添加</button></div>{error && <div className="mf-error">{error}</div>}</div></section>;
 }
 
+/** 长按判定窗口：在此窗口内若出现 key-repeat 则判定为长按（0.25s）。 */
+const SWITCHER_HOLD_MS = 250;
+/** 列表循环的最小步进间隔（节流 OS key-repeat，默认约 33ms/次太快）。 */
+const SWITCHER_STEP_MS = 160;
+/** 弹框后首次步进前的停留时间（0.5s），给用户一个反应窗口。 */
+const SWITCHER_FIRST_STEP_MS = 500;
+
+/** macOS 上纯 ⌘+` 被系统占用（窗口切换），因此要求 ⌘+⌥+`；其它平台仍用 Ctrl+`。 */
+function primaryModifier(event: KeyboardEvent): boolean {
+  const isMac = navigator.platform.startsWith('Mac') || navigator.userAgent.includes('Macintosh');
+  if (isMac) return event.metaKey && event.altKey;
+  return event.ctrlKey;
+}
+
+/** 把 id 移到 LRU 栈顶（去重）。 */
+function touchOrder(list: string[], id: string): string[] {
+  const without = list.filter((entry) => entry !== id);
+  return [id, ...without];
+}
+
+type SwitcherItem = { id: string; title: string; sub?: string };
+type SwitcherSnapshot = { open: boolean; activeIndex: number; items: SwitcherItem[] };
+
+/**
+ * 模块级会话切换状态机：与 React 生命周期彻底解耦。
+ * 键盘监听在启动时注册一次，永不因会话切换而销毁重建（这正是之前
+ * “松开按键后弹框不消失、也不切换”的竞态根因——effect 依赖 current，
+ * openSession 触发 current 变化 → 监听器被 cleanup，后续 keyup 无人处理）。
+ */
+class SwitcherMachine {
+  private listeners = new Set<() => void>();
+  private lru: string[] = [];
+  private current: string | undefined;
+  private sessions: SessionFavorite[] = [];
+  private roster: Record<string, any> = {};
+  private open = false;
+  private activeIndex = 0;
+  private phase: 'idle' | 'pending' = 'idle';
+  private lastStepAt = 0;
+  private holdTimer: number | null = null;
+  private openSession: (id: string) => void = () => {};
+  private disposers: Array<() => void> = [];
+
+  start(opts: {
+    openSession: (id: string) => void;
+    getList: () => { current?: string; byId?: Record<string, any> };
+    subscribeList: (fn: () => void) => () => void;
+    getSessions: () => SessionFavorite[];
+    subscribeSessions: (fn: () => void) => () => void;
+  }) {
+    this.openSession = opts.openSession;
+
+    const sync = () => {
+      const list = opts.getList();
+      this.roster = list.byId ?? {};
+      if (list.current && list.current !== this.current) {
+        this.lru = touchOrder(this.lru, list.current);
+      }
+      this.current = list.current;
+      this.sessions = opts.getSessions();
+      this.emit();
+    };
+
+    this.disposers = [opts.subscribeList(() => sync()), opts.subscribeSessions(() => sync())];
+    sync();
+    this.disposers.push(this.installKeyboard());
+  }
+
+  private installKeyboard(): () => void {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { if (this.open) { event.preventDefault(); this.close(); } return; }
+      // 死键（dead key）：` 的 event.key 是 'Dead'，只认物理键位 event.code === 'Backquote'。
+      if (event.code !== 'Backquote') return;
+      if (!primaryModifier(event)) return;
+      event.preventDefault();
+      if (event.repeat) {
+        // 已弹框时，repeat 驱动列表循环（带首步停留节流）。
+        if (this.open) { this.step(); }
+        return;
+      }
+      // 首次按下（非 repeat）。
+      if (this.open) { this.step(); return; }
+      this.phase = 'pending';
+      this.clearHold();
+      // 长按判定：修饰键 250ms 内未松（keyup 没到）即视为长按 → 弹框。
+      // 快速按靠修饰键 keyup 在此窗口内到达来提前触发，见 onKeyUp。
+      this.holdTimer = window.setTimeout(() => {
+        this.holdTimer = null;
+        if (this.phase !== 'pending') return;
+        this.phase = 'idle';
+        this.openList();
+      }, SWITCHER_HOLD_MS);
+    };
+    const onKeyUp = (event: KeyboardEvent) => {
+      const isMod = event.key === 'Meta' || event.key === 'Control' || event.key === 'Alt';
+      if (this.open) {
+        // 列表态：修饰键上行即确认（死键 ` 无 keyup）。
+        if (isMod) { this.confirm(); }
+        return;
+      }
+      if (this.phase === 'pending' && isMod) {
+        // 快速按：修饰键在 250ms 内松开 → 立即回溯，不等定时器。
+        this.phase = 'idle';
+        this.clearHold();
+        this.quickStep();
+      }
+    };
+    const onBlur = () => this.close();
+    window.addEventListener('keydown', onKeyDown, true);
+    window.addEventListener('keyup', onKeyUp, true);
+    window.addEventListener('blur', onBlur, true);
+    return () => { window.removeEventListener('keydown', onKeyDown, true); window.removeEventListener('keyup', onKeyUp, true); window.removeEventListener('blur', onBlur, true); this.clearHold(); };
+  }
+
+  private clearHold() { if (this.holdTimer != null) { clearTimeout(this.holdTimer); this.holdTimer = null; } }
+
+  private items(): SwitcherItem[] {
+    const favLookup = new Set(this.sessions.map((s) => s.id).filter((id) => this.roster[id]));
+    const lruFav = this.lru.filter((id) => favLookup.has(id));
+    const currentIn = this.current && favLookup.has(this.current) ? this.current : null;
+    const ordered = currentIn ? [currentIn, ...lruFav.filter((id) => id !== currentIn)] : lruFav;
+    for (const id of this.sessions.map((s) => s.id)) if (favLookup.has(id) && !ordered.includes(id)) ordered.push(id);
+    return ordered.map((id) => ({ id, title: sessionTitle(this.roster[id], id), sub: this.roster[id]?.cwd }));
+  }
+
+  private openList() {
+    const list = this.items();
+    if (!list.length) return;
+    const currentIdx = list.findIndex((item) => item.id === this.current);
+    this.activeIndex = currentIdx === 0 && list.length > 1 ? 1 : 0;
+    // 弹框后预留 0.5s 停留：把 lastStepAt 前推，使首次 step 被节流延后到 500ms 后。
+    this.lastStepAt = Date.now() + (SWITCHER_FIRST_STEP_MS - SWITCHER_STEP_MS);
+    this.open = true;
+    this.emit();
+  }
+  private step() {
+    const list = this.items();
+    if (!list.length) return;
+    const now = Date.now();
+    if (now - this.lastStepAt < SWITCHER_STEP_MS) return;
+    this.lastStepAt = now;
+    this.activeIndex = (this.activeIndex + 1) % list.length;
+    this.emit();
+  }
+  private confirm() {
+    const list = this.items();
+    const target = list[Math.min(Math.max(this.activeIndex, 0), list.length - 1)];
+    const wasOpen = this.open;
+    this.open = false;
+    this.emit();
+    if (wasOpen && target && target.id !== this.current) this.openSession(target.id);
+  }
+  private close() {
+    this.phase = 'idle';
+    this.clearHold();
+    if (this.open) { this.open = false; this.emit(); }
+  }
+  /** 鼠标点击列表项：确认并切换。 */
+  focusById(id: string) {
+    const list = this.items();
+    const idx = list.findIndex((item) => item.id === id);
+    if (idx >= 0) this.activeIndex = idx;
+    this.confirm();
+  }
+  /** 鼠标点击遮罩：取消（不切换）。 */
+  cancelById() { this.close(); }
+  private quickStep() {
+    const list = this.items();
+    if (list.length <= 1) return;
+    const currentIdx = list.findIndex((item) => item.id === this.current);
+    if (currentIdx < 0) { if (list[0].id !== this.current) this.openSession(list[0].id); return; }
+    const prev = list[(currentIdx + 1) % list.length];
+    if (prev.id !== this.current) this.openSession(prev.id);
+  }
+
+  private emit() { this.snapshot = { open: this.open, activeIndex: this.activeIndex, items: this.items() }; for (const fn of this.listeners) fn(); }
+  private snapshot: SwitcherSnapshot = { open: false, activeIndex: 0, items: [] };
+  getSnapshot = (): SwitcherSnapshot => this.snapshot;
+  subscribe = (fn: () => void) => { this.listeners.add(fn); return () => { this.listeners.delete(fn); }; };
+  dispose() { for (const d of this.disposers) { try { d(); } catch {} } this.disposers = []; this.listeners.clear(); this.open = false; }
+}
+
+const switcherMachine = new SwitcherMachine();
+
+function SessionSwitcherOverlay({ items, activeId, onConfirm, onCancel }: { items: SwitcherItem[]; activeId: string | null; onConfirm: (id: string) => void; onCancel: () => void }) {
+  const active = items.find((item) => item.id === activeId) ?? items[1];
+  const visible = items.slice(0, 20);
+  return <div className="mf-switcher-overlay" onClick={onCancel}><div className="mf-switcher-panel" onClick={(event) => event.stopPropagation()}><div className="mf-switcher-head">{active ? <><strong>{active.title}</strong>{active.sub ? <small>{active.sub}</small> : null}</> : <strong>收藏会话</strong>}</div><div className="mf-switcher-list">{visible.map((item) => <button key={item.id} type="button" className="mf-switcher-item" data-active={item.id === active?.id} data-anchor={visible.indexOf(item) === 0} onClick={() => onConfirm(item.id)}><span className="mf-switcher-title">{item.title}</span></button>)}</div><div className="mf-switcher-hint">继续按 ` / ~ 循环选择 · 松开确认 · Esc 取消</div></div></div>;
+}
+
+/** 纯渲染层：订阅 SwitcherMachine 快照，渲染浮层。不含任何键盘逻辑，生命周期无关。 */
+function SessionSwitcherHost() {
+  const snap = useSyncExternalStore(switcherMachine.subscribe, switcherMachine.getSnapshot);
+  if (!snap.open) return null;
+  const activeId = snap.items[snap.activeIndex]?.id ?? null;
+  return ReactDOM.createPortal(<SessionSwitcherOverlay items={snap.items} activeId={activeId} onConfirm={(id) => { switcherMachine.focusById(id); }} onCancel={() => switcherMachine.cancelById()} />, document.body);
+}
+
 export const inject = ['slots', 'settingsScope', 'sessions'];
-export function apply(ctx: any) { const scope: Scope = ctx.settingsScope.bind({ namespace: NS }); ctx.effect(() => ensureStyles(), 'my-favorites: styles'); ctx.slots.inject('conversation.session.header.actions', () => ctx.slots.register({ name: 'conversation.session.header.actions', id: 'my-favorites-toggle', order: -5, inject: () => ({ scope }) }, FavoriteToggle)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-below-new-session-bridge', order: 5, inject: () => ({ scope, openSession: (id: string) => ctx.sessions.open(id) }) }, SidebarBelowNewSessionBridge)); ctx.slots.inject('settings.plugins.tab', () => ctx.slots.register({ name: 'settings.plugins.tab', id: 'my-favorites', order: 30, label: () => '收藏', inject: () => ({ scope }) }, UrlSettingsCard)); }
+export function apply(ctx: any) { const scope: Scope = ctx.settingsScope.bind({ namespace: NS }); ctx.effect(() => ensureStyles(), 'my-favorites: styles'); ctx.effect(() => { try { const sessionsList = ctx.sessions.list; switcherMachine.start({ openSession: (id: string) => ctx.sessions.open(id), getList: () => sessionsList.getSnapshot(), subscribeList: (fn) => sessionsList.subscribe(fn), getSessions: () => scope.getSnapshot().value?.sessions ?? [], subscribeSessions: (fn) => scope.subscribe(fn) }); } catch (e) { console.error('[my-favorites] switcher start FAILED', e); } return () => switcherMachine.dispose(); }, 'my-favorites: switcher'); ctx.slots.inject('conversation.session.header.actions', () => ctx.slots.register({ name: 'conversation.session.header.actions', id: 'my-favorites-toggle', order: -5, inject: () => ({ scope }) }, FavoriteToggle)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-below-new-session-bridge', order: 5, inject: () => ({ scope, openSession: (id: string) => ctx.sessions.open(id) }) }, SidebarBelowNewSessionBridge)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-session-switcher', order: 6, inject: () => ({}) }, SessionSwitcherHost)); ctx.slots.inject('settings.plugins.tab', () => ctx.slots.register({ name: 'settings.plugins.tab', id: 'my-favorites', order: 30, label: () => '收藏', inject: () => ({ scope }) }, UrlSettingsCard)); }

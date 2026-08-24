@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented in this file.
 
+## [Unreleased]
+
+### Added
+
+- 快捷键会话切换器：`⌘+⌥+`` `（macOS）或 `Ctrl+`` `（其它平台）。
+  - 快速按：回溯到上一个收藏会话（不弹列表）。
+  - 长按（约 0.25s）：弹出居中切换列表，继续按住循环高亮，松开确认切换，`Esc` 或点击遮罩取消。
+  - 兼容死键（dead key）键盘：切换器不依赖 `` ` `` 的 keyup 事件。
+- 侧栏收藏夹中，当前会话显示低调的激活标记（左侧品牌色竖条 + 品牌色标题）。
+
+### Fixed
+
+- 设置页“收藏网址”表单因缺少 `display:grid` 导致字段与“添加”按钮挤在一起。
+
 ## [0.1.0] - 2026-08-24
 
 ### Added
