@@ -58,6 +58,9 @@ pnpm run build
 DSH 通过 `dsh plugin` 子命令管理 profile 插件（等价于在 profile 目录内执行 `pnpm`）。安装本插件：
 
 ```bash
+# 从 GitHub 安装（推荐；可加 #tag/分支 锁定版本）
+dsh plugin --profile web add github:qiqiangvae/dsh-my-favorites
+
 # 本机/开发：从本地路径软链接安装
 dsh plugin --profile web add link:/path/to/dsh-my-favorites
 

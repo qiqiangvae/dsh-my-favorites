@@ -10,6 +10,10 @@ DSH Desktop 的本机收藏插件。
 ## 安装
 
 ```bash
+# 从 GitHub 安装（推荐）
+dsh plugin --profile web add github:qiqiangvae/dsh-my-favorites
+
+# 本机开发：本地路径软链接
 dsh plugin --profile web add link:/path/to/dsh-my-favorites
 ```
 
