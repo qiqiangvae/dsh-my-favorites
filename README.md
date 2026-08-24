@@ -39,6 +39,8 @@
 
 ## 安装与构建
 
+### 构建
+
 在插件目录执行：
 
 ```bash
@@ -46,14 +48,26 @@ pnpm install
 pnpm run build
 ```
 
-> 作为 DSH **profile bundle** 加载时，必须将 `dsh-my-favorites` 同时列入 profile 的 `dsh.profile.bundles`；只把它加入 `dependencies` 不会启用插件。
-
 构建后的入口为：
 
 - `lib/index.js`：Host 侧设置命名空间注册；
 - `lib/client.js`：DSH Web 客户端 UI 扩展。
 
-随后在 DSH 的插件管理中加载本地插件目录或构建后的插件包。
+### 安装到 DSH
+
+DSH 通过 `dsh plugin` 子命令管理 profile 插件（等价于在 profile 目录内执行 `pnpm`）。安装本插件：
+
+```bash
+# 本机/开发：从本地路径软链接安装
+dsh plugin --profile web add link:/path/to/dsh-my-favorites
+
+# 从 npm 安装（若已发布）
+dsh plugin --profile web add dsh-my-favorites
+```
+
+将 `<profile>` 换成你的目标 profile（如 `web`、`desktop`、`tui`）。
+
+> **必须**同时把 `dsh-my-favorites` 列入该 profile `package.json` 的 `dsh.profile.bundles` 数组；只加入 `dependencies` 不会启用插件。安装后重启 DSH（或重新加载 profile）即可生效。
 
 ## 数据与限制
 
