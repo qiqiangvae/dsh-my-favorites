@@ -64,7 +64,7 @@ dsh plugin --profile web add github:qiqiangvae/dsh-my-favorites
 # 本机/开发：从本地路径软链接安装
 dsh plugin --profile web add link:/path/to/dsh-my-favorites
 
-# 从 npm 安装（若已发布）
+# 从 npm 安装
 dsh plugin --profile web add dsh-my-favorites
 ```
 
