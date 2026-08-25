@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.3.2] - 2026-08-25
+
+### Changed
+
+- 全部颜色收敛到 DSH 语义设计 token（`--dsw-alias-*`），插件样式随 UI 皮肤切换自动适配：
+  - 删除不存在的 `--dsw-alias-brand-primary` / `bg-layer-1/2` token，主色改用 `--dsw-alias-state-business-primary`，浮层底色改用 `--dsw-specific-menu`（+ `border-inverted` + `shadow-lv3`）。
+  - 危险色 → `state-error-primary`、警告/星标金 → `state-warn-primary`、反白前景 → `label-primary-inverted`、hover 背景 → `interactive-bg-hover`。
+- 网址收藏 favicon 增加三重硬约束（`width/max-width/flex-basis` 固定 16px + `align-self`），杜绝超大 `.ico`（256×256）间歇性回退到固有尺寸撑破标签。
+- 「★ 会话 (N)」折叠头与会话子项对齐 DSH 工作区 folder/row 观感：34px 分组头 / 32px 行高、8px 圆角、hover 高亮、16px 状态槽占位，展开箭头动画与字级对齐。
+- 快捷键切换器弹框对齐 DSH 浮层菜单：面板底色随皮肤、列表项 reset `appearance`/`transparent`（修复浏览器默认 buttonface 灰底）、激活项改 `interactive-bg-hover`、底部提示弱化为 caption 字色 + 淡分隔线。
+
+### Fixed
+
+- 会话被宿主删除后，仅在会话列表「就绪」态下判定失效并清除收藏残留，避免列表 pending 期间误删有效收藏。
+
 ## [0.3.1] - 2026-08-24
 
 ### Fixed
