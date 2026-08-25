@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.4.0] - 2026-08-25
+
+### Added
+
+- 切换会话弹框显示所属工作区的项目名称：
+  - 注入宿主 `workspaces` 服务，按 `sessionIds` 反查每个会话所属工作区，项目名取显式 `title`（缺失时回退路径 basename）。
+  - 弹框列表每项右侧显示项目名标签（胶囊底色、次要文字色、超长省略）；顶部标题下方副标题同样优先显示项目名，替代冗长的 cwd 完整路径。
+  - 订阅工作区变化，工作区增删/改名后实时刷新。
+
 ## [0.3.2] - 2026-08-25
 
 ### Changed

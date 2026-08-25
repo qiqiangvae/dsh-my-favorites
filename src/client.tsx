@@ -19,7 +19,7 @@ function ensureStyles() {
   style.textContent = `
 .mf-switcher-toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:9999;background:var(--dsw-alias-bg-module-platform,#fff);border:1px solid var(--dsw-alias-border-l2,#d9dce1);border-radius:8px;padding:8px 14px;font-size:13px;color:var(--dsw-alias-label-primary,#1f2329);box-shadow:0 4px 16px rgba(0,0,0,.12)}.mf-sessionSettings{display:flex;flex-direction:column;gap:10px}.mf-modeGroup{display:flex;gap:14px;align-items:center;flex-wrap:wrap}.mf-modeGroup label{display:inline-flex;align-items:center;gap:5px;font-size:13px;cursor:pointer}.mf-sessionSettings .mf-countRow{display:flex;align-items:center;gap:8px}.mf-sessionSettings .mf-countRow input{width:70px}.mf-sessionSettings .mf-modeNote{color:var(--dsw-alias-label-secondary,#697586);font-size:12px}
 .mf-headerButton,.mf-iconButton,.mf-urlTag{border:0;background:transparent;color:var(--dsw-alias-label-secondary,#697586);font:inherit;cursor:pointer}.mf-headerButton,.mf-iconButton{align-items:center;justify-content:center;display:inline-flex;border-radius:7px;width:30px;height:30px}.mf-headerButton:hover,.mf-iconButton:hover,.mf-urlTag:hover{background:var(--dsw-alias-interactive-bg-hover,rgba(0,0,0,.07));color:var(--dsw-alias-label-primary,#1f2329)}.mf-headerButton[data-active=true]{color:var(--dsw-alias-state-warn-primary,#e7a100)}.mf-belowNewSessionBridge{position:relative;padding:4px 8px;margin:4px 0}.mf-favorites{display:flex;flex-direction:column;gap:6px}.mf-urlTags{display:flex;flex-wrap:wrap;gap:6px}.mf-urlTag{align-items:center;justify-content:center;border:1px solid var(--dsw-alias-border-l2,#d9dce1);border-radius:7px;display:inline-flex;min-width:30px;max-width:72px;height:30px;padding:0 7px;overflow:hidden;font-size:12px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}.mf-favicon{width:16px;height:16px;max-width:16px;max-height:16px;min-width:0;min-height:0;object-fit:contain;flex:0 0 16px;align-self:center}.mf-folderButton{box-sizing:border-box;align-items:center;gap:6px;border:0;background:transparent;border-radius:8px;display:flex;width:100%;height:34px;padding:0 8px;color:var(--dsw-alias-label-primary,#1f2329);font:inherit;font-size:14px;line-height:20px;text-align:left;cursor:pointer;user-select:none}.mf-folderButton:hover{background:var(--dsw-alias-interactive-bg-hover,rgba(0,0,0,.07))}.mf-folderIcon{width:16px;height:20px;color:var(--dsw-alias-state-warn-primary,#e7a100);justify-content:center;align-items:center;display:inline-flex;flex:none;font-size:14px;line-height:20px}.mf-folderLabel{flex:1;min-width:0;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.mf-caret{width:16px;height:20px;color:var(--dsw-alias-label-caption,#9aa4b2);justify-content:center;align-items:center;display:inline-flex;flex:none;transition:transform .15s var(--ds-ease-in-out,ease)}.mf-folderButton[data-open=true] .mf-caret{transform:rotate(90deg)}.mf-sessionFolder{display:flex;flex-direction:column;gap:2px;max-height:240px;overflow:auto;padding-top:2px}.mf-sessionRow{align-items:center;box-sizing:border-box;height:32px;border-radius:8px;cursor:pointer;user-select:none;color:var(--dsw-alias-label-primary,#1f2329);display:flex;gap:0}.mf-slot{width:16px;height:20px;color:var(--dsw-alias-label-tertiary,#9aa4b2);justify-content:center;align-items:center;display:inline-flex;flex:none}.mf-sessionRow:hover{background:var(--dsw-alias-interactive-bg-hover,rgba(0,0,0,.07))}.mf-sessionRow[data-drag-ready=true]{cursor:grab}.mf-sessionRow[data-dragging=true]{opacity:.45}.mf-sessionRow[data-drop-target=true]{box-shadow:inset 0 2px 0 var(--dsw-alias-state-business-primary,#2468f2)}.mf-sessionRow[data-active=true] .mf-sessionButton{color:var(--dsw-alias-state-business-primary,#2468f2)}.mf-sessionButton{border:0;background:transparent;color:var(--dsw-alias-label-primary,#1f2329);font:inherit;cursor:pointer;flex:1;min-width:0;overflow:hidden;margin:0 6px 0 4px;text-align:left;text-overflow:ellipsis;white-space:nowrap;font-size:14px;line-height:20px}.mf-switcher-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.32);display:flex;align-items:center;justify-content:center}.mf-switcher-panel{background:var(--dsw-specific-menu,var(--dsw-alias-bg-module-platform,#fff));border:1px solid var(--dsw-alias-border-inverted,var(--dsw-alias-border-l2,#d9dce1));border-radius:12px;min-width:320px;max-width:560px;max-height:60vh;display:flex;flex-direction:column;box-shadow:var(--dsw-shadow-lv3,0 12px 40px rgba(0,0,0,.22));overflow:hidden}.mf-switcher-head{padding:12px 16px;border-bottom:1px solid var(--dsw-alias-border-l1,#d9dce1)}.mf-switcher-head strong{display:block;font-size:14px;line-height:20px;color:var(--dsw-alias-label-primary,#1f2329);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mf-switcher-head small{display:block;margin-top:2px;font-size:11px;color:var(--dsw-alias-label-caption,#697586);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mf-switcher-list{display:flex;flex-direction:column;padding:6px;overflow-y:auto}.mf-switcher-item{display:flex;align-items:center;height:32px;padding:0 8px;border-radius:8px;border:0;background:transparent;color:var(--dsw-alias-label-primary,#1f2329);cursor:pointer;user-select:none;appearance:none}
-mf-switcher-item:hover{background:var(--dsw-alias-interactive-bg-hover,rgba(0,0,0,.07))}.mf-switcher-item[data-active=true]{background:var(--dsw-alias-interactive-bg-hover,rgba(0,0,0,.07))}.mf-switcher-item .mf-switcher-title{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;line-height:20px}.mf-switcher-hint{padding:8px 16px;border-top:1px solid var(--dsw-alias-border-l1,#d9dce1);font-size:11px;color:var(--dsw-alias-label-caption,#697586)}.mf-invalid{color:var(--dsw-alias-label-tertiary,#9aa4b2);text-decoration:line-through}.mf-remove{color:var(--dsw-alias-label-tertiary,#9aa4b2);flex:none;opacity:0;pointer-events:none;transition:opacity .12s}.mf-sessionRow:hover .mf-remove,.mf-sessionRow:focus-within .mf-remove{opacity:1;pointer-events:auto}.mf-empty{color:var(--dsw-alias-label-tertiary,#9aa4b2);font-size:12px;line-height:1.5;padding:7px 8px}.mf-settings{max-width:760px;display:flex;flex-direction:column;gap:16px}.mf-settings h2{margin:0}.mf-card{border:1px solid var(--dsw-alias-border-l2,#d9dce1);border-radius:12px;padding:16px}.mf-form{display:grid;grid-template-columns:1.1fr 2fr 1fr auto auto;gap:8px;align-items:center;margin-top:12px}.mf-urlRow{display:grid;grid-template-columns:1.1fr 2fr 1fr auto auto auto;gap:8px;align-items:center}.mf-field{border:1px solid var(--dsw-alias-border-l2,#d9dce1);border-radius:7px;background:transparent;color:inherit;padding:7px 8px;font:inherit;min-width:0}.mf-primary{border:0;border-radius:7px;background:var(--dsw-alias-state-business-primary,#2468f2);color:var(--dsw-alias-label-primary-inverted,#fff);padding:8px 12px;cursor:pointer}.mf-danger{color:var(--dsw-alias-state-error-primary,#d03050)}.mf-urlList{display:flex;flex-direction:column;gap:8px;margin-top:12px}.mf-error{color:var(--dsw-alias-state-error-primary,#d03050);font-size:12px;margin:8px 0 0}@media(max-width:600px){.mf-form,.mf-urlRow{grid-template-columns:1fr}}
+mf-switcher-item:hover{background:var(--dsw-alias-interactive-bg-hover,rgba(0,0,0,.07))}.mf-switcher-item[data-active=true]{background:var(--dsw-alias-interactive-bg-hover,rgba(0,0,0,.07))}.mf-switcher-item .mf-switcher-title{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;line-height:20px}.mf-switcher-item .mf-switcher-workspace{flex:none;margin-left:8px;padding:0 6px;border-radius:4px;background:var(--dsw-alias-interactive-bg-hover,rgba(0,0,0,.06));color:var(--dsw-alias-label-caption,#697586);font-size:11px;line-height:18px;max-width:40%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mf-switcher-item[data-active=true] .mf-switcher-workspace{background:rgba(255,255,255,.2);color:inherit}.mf-switcher-hint{padding:8px 16px;border-top:1px solid var(--dsw-alias-border-l1,#d9dce1);font-size:11px;color:var(--dsw-alias-label-caption,#697586)}.mf-invalid{color:var(--dsw-alias-label-tertiary,#9aa4b2);text-decoration:line-through}.mf-remove{color:var(--dsw-alias-label-tertiary,#9aa4b2);flex:none;opacity:0;pointer-events:none;transition:opacity .12s}.mf-sessionRow:hover .mf-remove,.mf-sessionRow:focus-within .mf-remove{opacity:1;pointer-events:auto}.mf-empty{color:var(--dsw-alias-label-tertiary,#9aa4b2);font-size:12px;line-height:1.5;padding:7px 8px}.mf-settings{max-width:760px;display:flex;flex-direction:column;gap:16px}.mf-settings h2{margin:0}.mf-card{border:1px solid var(--dsw-alias-border-l2,#d9dce1);border-radius:12px;padding:16px}.mf-form{display:grid;grid-template-columns:1.1fr 2fr 1fr auto auto;gap:8px;align-items:center;margin-top:12px}.mf-urlRow{display:grid;grid-template-columns:1.1fr 2fr 1fr auto auto auto;gap:8px;align-items:center}.mf-field{border:1px solid var(--dsw-alias-border-l2,#d9dce1);border-radius:7px;background:transparent;color:inherit;padding:7px 8px;font:inherit;min-width:0}.mf-primary{border:0;border-radius:7px;background:var(--dsw-alias-state-business-primary,#2468f2);color:var(--dsw-alias-label-primary-inverted,#fff);padding:8px 12px;cursor:pointer}.mf-danger{color:var(--dsw-alias-state-error-primary,#d03050)}.mf-urlList{display:flex;flex-direction:column;gap:8px;margin-top:12px}.mf-error{color:var(--dsw-alias-state-error-primary,#d03050);font-size:12px;margin:8px 0 0}@media(max-width:600px){.mf-form,.mf-urlRow{grid-template-columns:1fr}}
 `;
   document.head.append(style); return () => style.remove();
 }
@@ -27,6 +27,12 @@ mf-switcher-item:hover{background:var(--dsw-alias-interactive-bg-hover,rgba(0,0,
 function useSettings(scope: Scope): SettingsValue { const snapshot = useSyncExternalStore(scope.subscribe.bind(scope), scope.getSnapshot.bind(scope)); const value = snapshot.value ?? { sessions: [], urls: [] }; return { sessions: value.sessions ?? [], urls: value.urls ?? [], mode: value.mode ?? 'favorites', recentCount: clampRecentCount(value.recentCount ?? DEFAULT_RECENT) }; }
 function clampRecentCount(value: number): number { const num = Number.isFinite(value) ? value : DEFAULT_RECENT; return Math.min(MAX_RECENT, Math.max(MIN_RECENT, Math.round(num))); }
 function sessionTitle(session: any, fallback: string) { return session?.displayTitle ?? session?.title ?? fallback; }
+/** 工作区项目名：优先显式 title，否则取 path 的最后一段（basename）。 */
+function workspaceTitleOf(title: string | undefined, path: string | undefined): string {
+  if (title != null && title !== '') return title;
+  if (path != null && path !== '') { const base = path.replace(/[/\\]+$/, '').split(/[/\\]/).pop() ?? ''; if (base) return base; }
+  return '';
+}
 function validUrl(value: string) { try { return ['http:', 'https:', 'mailto:'].includes(new URL(value).protocol); } catch { return false; } }
 function Star({ filled }: { filled: boolean }) { return <span aria-hidden="true">{filled ? '★' : '☆'}</span>; }
 
@@ -118,7 +124,7 @@ function touchOrder(list: string[], id: string): string[] {
   return [id, ...without];
 }
 
-type SwitcherItem = { id: string; title: string; sub?: string };
+type SwitcherItem = { id: string; title: string; sub?: string; workspaceTitle?: string };
 type SwitcherSnapshot = { open: boolean; activeIndex: number; items: SwitcherItem[]; hint: string | null };
 
 /**
@@ -146,11 +152,15 @@ class SwitcherMachine {
   private holdTimer: number | null = null;
   private openSession: (id: string) => void = () => {};
   private disposers: Array<() => void> = [];
+  /** session id → 所属工作区项目名（title，缺失时回退 path basename）。 */
+  private workspaceTitleById: Record<string, string> = {};
 
   start(opts: {
     openSession: (id: string) => void;
     getList: () => { current?: string; byId?: Record<string, any>; ids?: string[]; phase?: 'pending' | 'ready' };
     subscribeList: (fn: () => void) => () => void;
+    getWorkspaces: () => { items?: Array<{ workspaceId?: string; title?: string; path?: string; sessionIds?: string[] }> };
+    subscribeWorkspaces: (fn: () => void) => () => void;
     getSettings: () => SettingsValue;
     subscribeSettings: (fn: () => void) => () => void;
     setSettings: (field: SettingField, value: unknown) => Promise<void>;
@@ -171,6 +181,15 @@ class SwitcherMachine {
       this.mode = settings.mode ?? 'favorites';
       this.recentCount = clampRecentCount(settings.recentCount ?? DEFAULT_RECENT);
 
+      // 工作区项目名映射：遍历 workspaces.items，用 sessionIds 反查所属 workspace。
+      const wsTitles: Record<string, string> = {};
+      const wsItems = opts.getWorkspaces().items ?? [];
+      for (const ws of wsItems) {
+        const name = workspaceTitleOf(ws.title, ws.path);
+        if (name && ws.sessionIds) for (const sid of ws.sessionIds) wsTitles[sid] = name;
+      }
+      this.workspaceTitleById = wsTitles;
+
       // 删除后清除残留：会话被宿主删除（session.list 不再返回该 id）后，
       // 只在该列表「就绪」态下判定失效并不可逆地清除收藏，杜绝 pending 期间误删。
       this.lru = this.lru.filter((id) => this.roster[id]);
@@ -185,7 +204,7 @@ class SwitcherMachine {
       this.emit();
     };
 
-    this.disposers = [opts.subscribeList(() => sync()), opts.subscribeSettings(() => sync())];
+    this.disposers = [opts.subscribeList(() => sync()), opts.subscribeSettings(() => sync()), opts.subscribeWorkspaces(() => sync())];
     sync();
     this.disposers.push(this.installKeyboard());
   }
@@ -250,7 +269,7 @@ class SwitcherMachine {
     const currentIn = this.current && favLookup.has(this.current) ? this.current : null;
     const ordered = currentIn ? [currentIn, ...lruFav.filter((id) => id !== currentIn)] : lruFav;
     for (const id of this.sessions.map((s) => s.id)) if (favLookup.has(id) && !ordered.includes(id)) ordered.push(id);
-    return ordered.map((id) => ({ id, title: sessionTitle(this.roster[id], id), sub: this.roster[id]?.cwd }));
+    return ordered.map((id) => ({ id, title: sessionTitle(this.roster[id], id), sub: this.roster[id]?.cwd, workspaceTitle: this.workspaceTitleById[id] }));
   }
 
   /** 最近模式：以 LRU（最近访问）为排序源，冷启动时用宿主 updatedAt 倒序 ids 兜底；过滤空会话（blank）与子 agent 会话后取前 N。 */
@@ -263,7 +282,7 @@ class SwitcherMachine {
       .map((id) => this.roster[id])
       .filter((session): session is Record<string, any> => !session.blank && !session.origin)
       .slice(0, this.recentCount)
-      .map((session) => ({ id: session.id, title: sessionTitle(session, session.id), sub: session.cwd }));
+      .map((session) => ({ id: session.id, title: sessionTitle(session, session.id), sub: session.cwd, workspaceTitle: this.workspaceTitleById[session.id] }));
   }
 
   private openList() {
@@ -341,7 +360,7 @@ const switcherMachine = new SwitcherMachine();
 function SessionSwitcherOverlay({ items, activeId, hint, onConfirm, onCancel }: { items: SwitcherItem[]; activeId: string | null; hint: string | null; onConfirm: (id: string) => void; onCancel: () => void }) {
   const active = items.find((item) => item.id === activeId) ?? items[1] ?? items[0];
   const visible = items.slice(0, 20);
-  return <div className="mf-switcher-overlay" onClick={onCancel}><div className="mf-switcher-panel" onClick={(event) => event.stopPropagation()}><div className="mf-switcher-head">{active ? <><strong>{active.title}</strong>{active.sub ? <small>{active.sub}</small> : null}</> : <strong>收藏会话</strong>}</div><div className="mf-switcher-list">{visible.map((item) => <button key={item.id} type="button" className="mf-switcher-item" data-active={item.id === active?.id} data-anchor={visible.indexOf(item) === 0} onClick={() => onConfirm(item.id)}><span className="mf-switcher-title">{item.title}</span></button>)}</div><div className="mf-switcher-hint">继续按 ` / ~ 循环选择 · 松开确认 · Esc 取消</div></div></div>;
+  return <div className="mf-switcher-overlay" onClick={onCancel}><div className="mf-switcher-panel" onClick={(event) => event.stopPropagation()}><div className="mf-switcher-head">{active ? <><strong>{active.title}</strong>{(active.workspaceTitle || active.sub) ? <small>{active.workspaceTitle || active.sub}</small> : null}</> : <strong>收藏会话</strong>}</div><div className="mf-switcher-list">{visible.map((item) => <button key={item.id} type="button" className="mf-switcher-item" data-active={item.id === active?.id} data-anchor={visible.indexOf(item) === 0} onClick={() => onConfirm(item.id)}><span className="mf-switcher-title">{item.title}</span>{item.workspaceTitle ? <span className="mf-switcher-workspace">{item.workspaceTitle}</span> : null}</button>)}</div><div className="mf-switcher-hint">继续按 ` / ~ 循环选择 · 松开确认 · Esc 取消</div></div></div>;
 }
 
 /** 纯提示浮层：无目标可切时的短暂提示（不遮挡操作）。 */
@@ -359,5 +378,5 @@ function SessionSwitcherHost() {
   return ReactDOM.createPortal(<SessionSwitcherOverlay items={snap.items} activeId={activeId} hint={snap.hint} onConfirm={(id) => { switcherMachine.focusById(id); }} onCancel={() => switcherMachine.cancelById()} />, document.body);
 }
 
-export const inject = ['slots', 'settingsScope', 'sessions'];
-export function apply(ctx: any) { const scope: Scope = ctx.settingsScope.bind({ namespace: NS }); ctx.effect(() => ensureStyles(), 'my-favorites: styles'); ctx.effect(() => { try { const sessionsList = ctx.sessions.list; switcherMachine.start({ openSession: (id: string) => ctx.sessions.open(id), getList: () => sessionsList.getSnapshot(), subscribeList: (fn) => sessionsList.subscribe(fn), getSettings: () => scope.getSnapshot().value ?? { sessions: [], urls: [], mode: 'favorites', recentCount: DEFAULT_RECENT }, subscribeSettings: (fn) => scope.subscribe(fn), setSettings: (field, value) => scope.set(field, value) }); } catch (e) { console.error('[my-favorites] switcher start FAILED', e); } return () => switcherMachine.dispose(); }, 'my-favorites: switcher'); ctx.slots.inject('conversation.session.header.actions', () => ctx.slots.register({ name: 'conversation.session.header.actions', id: 'my-favorites-toggle', order: -5, inject: () => ({ scope }) }, FavoriteToggle)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-below-new-session-bridge', order: 5, inject: () => ({ scope, openSession: (id: string) => ctx.sessions.open(id) }) }, SidebarBelowNewSessionBridge)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-session-switcher', order: 6, inject: () => ({}) }, SessionSwitcherHost)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-switcher-hint', order: 7, inject: () => ({}) }, SwitcherHintHost)); ctx.slots.inject('settings.plugins.tab', () => ctx.slots.register({ name: 'settings.plugins.tab', id: 'my-favorites', order: 30, label: () => '收藏', inject: () => ({ scope }) }, SettingsCard)); }
+export const inject = ['slots', 'settingsScope', 'sessions', 'workspaces'];
+export function apply(ctx: any) { const scope: Scope = ctx.settingsScope.bind({ namespace: NS }); ctx.effect(() => ensureStyles(), 'my-favorites: styles'); ctx.effect(() => { try { const sessionsList = ctx.sessions.list; const workspacesList = ctx.workspaces.list; switcherMachine.start({ openSession: (id: string) => ctx.sessions.open(id), getList: () => sessionsList.getSnapshot(), subscribeList: (fn) => sessionsList.subscribe(fn), getWorkspaces: () => workspacesList.getSnapshot(), subscribeWorkspaces: (fn) => workspacesList.subscribe(fn), getSettings: () => scope.getSnapshot().value ?? { sessions: [], urls: [], mode: 'favorites', recentCount: DEFAULT_RECENT }, subscribeSettings: (fn) => scope.subscribe(fn), setSettings: (field, value) => scope.set(field, value) }); } catch (e) { console.error('[my-favorites] switcher start FAILED', e); } return () => switcherMachine.dispose(); }, 'my-favorites: switcher'); ctx.slots.inject('conversation.session.header.actions', () => ctx.slots.register({ name: 'conversation.session.header.actions', id: 'my-favorites-toggle', order: -5, inject: () => ({ scope }) }, FavoriteToggle)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-below-new-session-bridge', order: 5, inject: () => ({ scope, openSession: (id: string) => ctx.sessions.open(id) }) }, SidebarBelowNewSessionBridge)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-session-switcher', order: 6, inject: () => ({}) }, SessionSwitcherHost)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-switcher-hint', order: 7, inject: () => ({}) }, SwitcherHintHost)); ctx.slots.inject('settings.plugins.tab', () => ctx.slots.register({ name: 'settings.plugins.tab', id: 'my-favorites', order: 30, label: () => '收藏', inject: () => ({ scope }) }, SettingsCard)); }
