@@ -25,6 +25,7 @@ export const FavoritesSettingsSchema = z.object({
   urls: z.array(UrlFavoriteSchema).default([]),
   mode: SwitcherModeSchema.default('favorites'),
   recentCount: z.number().min(MIN_RECENT).max(MAX_RECENT).default(DEFAULT_RECENT),
+  urlsEnabled: z.boolean().default(true),
 });
 
 export { MIN_RECENT, MAX_RECENT, DEFAULT_RECENT };

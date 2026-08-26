@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.4.1] - 2026-08-26
+
+### Added
+
+- 网址收藏新增「启用收藏的网站」开关（默认开启）：关闭后侧栏不再显示网址快捷标签，仅保留会话收藏夹；已保存的网址收藏与设置项完整保留，重新开启即恢复显示。
+
+### Changed
+
+- 补齐开发依赖 `esbuild` 与 `@types/react-dom`，修复此前 `build` / `typecheck` 因缺失依赖而失败的问题。
+
 ## [0.4.0] - 2026-08-25
 
 ### Added
