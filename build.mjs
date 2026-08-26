@@ -14,6 +14,16 @@ await build({
 });
 
 await build({
+  entryPoints: ['src/typert.ts'],
+  outfile: 'lib/typert.host.js',
+  bundle: true,
+  platform: 'node',
+  format: 'esm',
+  target: ['node22'],
+  external: ['@deepseek-ai/*'],
+});
+
+await build({
   entryPoints: ['src/client.tsx'],
   outfile: 'lib/client.js',
   bundle: true,
@@ -35,4 +45,4 @@ await build({
   footer: { js: 'return module.exports; } });' },
 });
 
-console.log('[dsh-my-favorites build] done: lib/index.js, lib/client.js');
+console.log('[dsh-my-favorites build] done: lib/index.js, lib/typert.host.js, lib/client.js');

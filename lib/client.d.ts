@@ -8,7 +8,8 @@ export type UrlFavorite = {
     name: string;
     url: string;
     icon: string;
-    letters: string;
+    useFavicon: boolean;
 };
+export type SwitcherMode = 'favorites' | 'recent';
 export declare const inject: string[];
-export declare function apply(ctx: any): void;
+export declare function apply(ctx: any): Promise<void>;

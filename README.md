@@ -52,8 +52,9 @@ pnpm run build
 
 构建后的入口为：
 
-- `lib/index.js`：Host 侧设置命名空间注册；
-- `lib/client.js`：DSH Web 客户端 UI 扩展。
+- `lib/index.js`：Host 侧收藏存储服务（持久化到 `$DSH_HOME/storages/dsh-my-favorites.json`，并暴露 `myFavorites` RPC 服务）；
+- `lib/typert.host.js`：Host 面 Typert 清单（`./typert`，由 DSH 的 typert-loader 自动注册）；
+- `lib/client.js`：DSH Web 客户端 UI 扩展（经 `remote.myFavorites.*` 读写收藏数据）。
 
 ### 安装到 DSH
 
@@ -76,9 +77,9 @@ dsh plugin --profile web add dsh-my-favorites
 
 ## 数据与限制
 
-- 收藏数据保存在当前 DSH 本机用户的 `my-favorites` 插件设置命名空间中，不跨设备同步，也不提供导入/导出。
+- 收藏数据保存在本机 `$DSH_HOME/storages/dsh-my-favorites.json`（默认 `~/.dsh/storages/dsh-my-favorites.json`）中，**不写入 `settings.yaml`**，不跨设备同步，也不提供导入/导出。
 - 会话收藏保存的是当前 DSH 实例内的会话 ID，因此不适合跨机器、跨 DSH 数据目录迁移。
-- 远程浏览器连接不具备宿主设置写入权限时，收藏设置不会持久化。
+- 远程浏览器连接不具备宿主 RPC 写入权限时，收藏设置不会持久化。
 - 若已收藏的会话被删除或当前实例不再能识别该 ID，切换会话会失败；请从收藏列表移除该条目。
 
 ## 开发验证
@@ -87,8 +88,9 @@ dsh plugin --profile web add dsh-my-favorites
 
 ```bash
 pnpm run typecheck
-node --check lib/client.js
 node --check lib/index.js
+node --check lib/typert.host.js
+node --check lib/client.js
 ```
 
 > 本机若缺少 DSH 私有包的 pnpm 离线镜像元数据，`pnpm install --offline` 可能失败；可在具备 DSH 依赖源的环境中正常安装并构建。

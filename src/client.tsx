@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import * as ReactDOM from 'react-dom';
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-runtime/client';
+import { favoritesFieldSchema, favoritesFieldValueSchema, favoritesStateSchema } from './schema.js';
 import { MIN_RECENT, MAX_RECENT, DEFAULT_RECENT } from './constants.js';
 
 export const NS = 'my-favorites';
@@ -10,6 +12,82 @@ export type SwitcherMode = 'favorites' | 'recent';
 type SettingsValue = { sessions: SessionFavorite[]; urls: UrlFavorite[]; mode?: SwitcherMode; recentCount?: number; urlsEnabled?: boolean };
 type SettingField = 'sessions' | 'urls' | 'mode' | 'recentCount' | 'urlsEnabled';
 type Scope = { getSnapshot(): { value?: SettingsValue }; subscribe(listener: () => void): () => void; set(field: SettingField, value: unknown): Promise<void> };
+
+/** Remote 代理：客户端经 remote.myFavorites.* 调用宿主服务（方法返回 RPC 信封）。 */
+type RemoteEnvelope<T> = { ok: true; value: T } | { ok: false; error?: { message?: string } };
+type RemoteFavorites = {
+  getState(): Promise<RemoteEnvelope<unknown>>;
+  setField(field: string, value: unknown): Promise<RemoteEnvelope<unknown>>;
+};
+
+/** 客户端 Remote contribution：与宿主 ./typert 清单的端点（namespace/method）逐一对应。 */
+const REMOTE_CONTRIBUTION = {
+  package: 'dsh-my-favorites',
+  descriptors: [
+    {
+      id: 'dsh-my-favorites#myFavorites/getState', service: 'myFavorites', namespace: 'myFavorites', method: 'getState',
+      invocation: { kind: 'direct' as const }, parameters: [],
+      result: { mode: 'strict' as const, typeSymbol: 'dsh-my-favorites#FavoritesState', schema: favoritesStateSchema },
+    },
+    {
+      id: 'dsh-my-favorites#myFavorites/setField', service: 'myFavorites', namespace: 'myFavorites', method: 'setField',
+      invocation: { kind: 'direct' as const },
+      parameters: [
+        { name: 'field', wire: 'field', source: 'json' as const, codec: { mode: 'strict' as const, typeSymbol: 'dsh-my-favorites#FavoritesField', schema: favoritesFieldSchema } },
+        { name: 'value', wire: 'value', source: 'json' as const, codec: { mode: 'strict' as const, typeSymbol: 'dsh-my-favorites#FavoritesFieldValue', schema: favoritesFieldValueSchema } },
+      ],
+      result: { mode: 'strict' as const, typeSymbol: 'dsh-my-favorites#FavoritesState', schema: favoritesStateSchema },
+    },
+  ],
+};
+
+function normalizeStateValue(value: unknown): SettingsValue {
+  const fallback: SettingsValue = { sessions: [], urls: [], mode: 'favorites', recentCount: DEFAULT_RECENT, urlsEnabled: true };
+  if (value == null || typeof value !== 'object') return fallback;
+  const v = value as Partial<SettingsValue>;
+  return {
+    sessions: Array.isArray(v.sessions) ? v.sessions : [],
+    urls: Array.isArray(v.urls) ? v.urls : [],
+    mode: v.mode === 'recent' ? 'recent' : 'favorites',
+    recentCount: clampRecentCount(v.recentCount ?? DEFAULT_RECENT),
+    urlsEnabled: v.urlsEnabled !== false,
+  };
+}
+
+function envelopeValue(result: RemoteEnvelope<unknown>, action: string): unknown {
+  if (result && typeof result === 'object' && (result as any).ok === true) return (result as any).value;
+  throw new Error((result as any)?.error?.message ?? `${action} 失败`);
+}
+
+/**
+ * 收藏设置 scope：与旧 settingsScope 完全相同的契约（getSnapshot/subscribe/set），
+ * 数据经 remote.myFavorites RPC 读写宿主侧 ~/.dsh/storages/dsh-my-favorites.json。
+ * remote 不可用（非回环浏览器等）时退化为内存态：读默认值、写 no-op。
+ */
+function createFavoritesScope(remote: RemoteFavorites | undefined, ctx: any): Scope {
+  const store = createSnapshotStore<{ value?: SettingsValue }>({ value: undefined });
+  let tail: Promise<void> = Promise.resolve();
+  const applyState = (state: unknown) => store.update((draft) => { draft.value = normalizeStateValue(state); });
+  const reload = async () => {
+    if (!remote) return;
+    try { applyState(envelopeValue(await remote.getState(), 'getState')); }
+    catch (error) { console.error('[my-favorites] 状态加载失败', error); }
+  };
+  const set = (field: SettingField, value: unknown): Promise<void> => {
+    if (!remote) return Promise.resolve();
+    const task = tail.then(async () => {
+      try { applyState(envelopeValue(await remote.setField(field, value), 'setField')); }
+      catch (error) { console.error('[my-favorites] 状态写入失败', error); await reload(); }
+    });
+    tail = task.catch(() => {});
+    return task;
+  };
+  if (remote) {
+    void reload();
+    ctx.effect(() => ctx.on('connection/reset', () => { void reload(); }), 'my-favorites: reconnect reload');
+  }
+  return { getSnapshot: store.getSnapshot, subscribe: store.subscribe, set };
+}
 
 const STYLE_ID = 'dsh-my-favorites';
 
@@ -378,5 +456,22 @@ function SessionSwitcherHost() {
   return ReactDOM.createPortal(<SessionSwitcherOverlay items={snap.items} activeId={activeId} hint={snap.hint} onConfirm={(id) => { switcherMachine.focusById(id); }} onCancel={() => switcherMachine.cancelById()} />, document.body);
 }
 
-export const inject = ['slots', 'settingsScope', 'sessions', 'workspaces'];
-export function apply(ctx: any) { const scope: Scope = ctx.settingsScope.bind({ namespace: NS }); ctx.effect(() => ensureStyles(), 'my-favorites: styles'); ctx.effect(() => { try { const sessionsList = ctx.sessions.list; const workspacesList = ctx.workspaces.list; switcherMachine.start({ openSession: (id: string) => ctx.sessions.open(id), getList: () => sessionsList.getSnapshot(), subscribeList: (fn) => sessionsList.subscribe(fn), getWorkspaces: () => workspacesList.getSnapshot(), subscribeWorkspaces: (fn) => workspacesList.subscribe(fn), getSettings: () => scope.getSnapshot().value ?? { sessions: [], urls: [], mode: 'favorites', recentCount: DEFAULT_RECENT }, subscribeSettings: (fn) => scope.subscribe(fn), setSettings: (field, value) => scope.set(field, value) }); } catch (e) { console.error('[my-favorites] switcher start FAILED', e); } return () => switcherMachine.dispose(); }, 'my-favorites: switcher'); ctx.slots.inject('conversation.session.header.actions', () => ctx.slots.register({ name: 'conversation.session.header.actions', id: 'my-favorites-toggle', order: -5, inject: () => ({ scope }) }, FavoriteToggle)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-below-new-session-bridge', order: 5, inject: () => ({ scope, openSession: (id: string) => ctx.sessions.open(id) }) }, SidebarBelowNewSessionBridge)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-session-switcher', order: 6, inject: () => ({}) }, SessionSwitcherHost)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-switcher-hint', order: 7, inject: () => ({}) }, SwitcherHintHost)); ctx.slots.inject('settings.plugins.tab', () => ctx.slots.register({ name: 'settings.plugins.tab', id: 'my-favorites', order: 30, label: () => '收藏', inject: () => ({ scope }) }, SettingsCard)); }
+export const inject = ['slots', 'remote', 'sessions', 'workspaces'];
+export async function apply(ctx: any) {
+  const host = ctx.remote;
+  let remote: RemoteFavorites | undefined;
+  let unmount: (() => void) | undefined;
+  if (host && typeof host.$mount === 'function') {
+    try {
+      unmount = await host.$mount(REMOTE_CONTRIBUTION);
+      remote = ctx.get('remote.myFavorites');
+      if (remote === undefined) console.warn('[my-favorites] remote.myFavorites 不可用，收藏设置退化为内存态');
+    } catch (error) {
+      console.error('[my-favorites] remote contribution 挂载失败', error);
+    }
+  } else {
+    console.warn('[my-favorites] 客户端缺少 remote 服务，收藏设置退化为内存态');
+  }
+  if (unmount) ctx.effect(() => () => { void unmount(); }, 'my-favorites: remote unmount');
+  const scope: Scope = createFavoritesScope(remote, ctx);
+  ctx.effect(() => ensureStyles(), 'my-favorites: styles'); ctx.effect(() => { try { const sessionsList = ctx.sessions.list; const workspacesList = ctx.workspaces.list; switcherMachine.start({ openSession: (id: string) => ctx.sessions.open(id), getList: () => sessionsList.getSnapshot(), subscribeList: (fn) => sessionsList.subscribe(fn), getWorkspaces: () => workspacesList.getSnapshot(), subscribeWorkspaces: (fn) => workspacesList.subscribe(fn), getSettings: () => scope.getSnapshot().value ?? { sessions: [], urls: [], mode: 'favorites', recentCount: DEFAULT_RECENT }, subscribeSettings: (fn) => scope.subscribe(fn), setSettings: (field, value) => scope.set(field, value) }); } catch (e) { console.error('[my-favorites] switcher start FAILED', e); } return () => switcherMachine.dispose(); }, 'my-favorites: switcher'); ctx.slots.inject('conversation.session.header.actions', () => ctx.slots.register({ name: 'conversation.session.header.actions', id: 'my-favorites-toggle', order: -5, inject: () => ({ scope }) }, FavoriteToggle)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-below-new-session-bridge', order: 5, inject: () => ({ scope, openSession: (id: string) => ctx.sessions.open(id) }) }, SidebarBelowNewSessionBridge)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-session-switcher', order: 6, inject: () => ({}) }, SessionSwitcherHost)); ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({ name: 'sidebar.footer.action', id: 'my-favorites-switcher-hint', order: 7, inject: () => ({}) }, SwitcherHintHost)); ctx.slots.inject('settings.plugins.tab', () => ctx.slots.register({ name: 'settings.plugins.tab', id: 'my-favorites', order: 30, label: () => '收藏', inject: () => ({ scope }) }, SettingsCard)); }

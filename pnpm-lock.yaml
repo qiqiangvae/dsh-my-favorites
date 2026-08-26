@@ -20,16 +20,19 @@ importers:
       '@deepseek-ai/dsh-client-ui-sidebar':
         specifier: 0.1.1-rc.2
         version: 0.1.1-rc.2(@deepseek-ai/cordis@4.0.1)(@deepseek-ai/dsh-client-locale@0.1.1-rc.2(048e7c438545728704e82d9acbc5c221))(@deepseek-ai/dsh-client-runtime@0.1.1-rc.2(601e9129357dc48738583e18d75d19b2))(@deepseek-ai/dsh-client-ui-layout@0.1.1-rc.2(@deepseek-ai/cordis@4.0.1)(@deepseek-ai/dsh-client-runtime@0.1.1-rc.2(601e9129357dc48738583e18d75d19b2))(@deepseek-ai/dsh-client-ui-theme@0.1.1-rc.2(a6c39110759121c55549be9a5dac7bf7))(@deepseek-ai/dsh-invariants@0.1.1-rc.2(@deepseek-ai/cordis@4.0.1)))(@deepseek-ai/dsh-invariants@0.1.1-rc.2(@deepseek-ai/cordis@4.0.1))
-      '@deepseek-ai/dsh-settings':
+      '@deepseek-ai/dsh-home-paths':
         specifier: 0.1.1-rc.2
-        version: 0.1.1-rc.2(@deepseek-ai/cordis@4.0.1)(@deepseek-ai/dsh-brand@0.1.1-rc.2(@deepseek-ai/cordis@4.0.1)(@deepseek-ai/dsh-invariants@0.1.1-rc.2(@deepseek-ai/cordis@4.0.1)))(@deepseek-ai/dsh-invariants@0.1.1-rc.2(@deepseek-ai/cordis@4.0.1))(@deepseek-ai/schemastery@3.18.1)
-      '@deepseek-ai/schemastery':
-        specifier: ^3.18.1
-        version: 3.18.1
+        version: 0.1.1-rc.2(@deepseek-ai/cordis@4.0.1)(@deepseek-ai/dsh-invariants@0.1.1-rc.2(@deepseek-ai/cordis@4.0.1))
       react:
         specifier: 18.3.1
         version: 18.3.1
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
     devDependencies:
+      '@types/node':
+        specifier: ^22.20.1
+        version: 22.20.1
       '@types/react':
         specifier: ^18.3.0
         version: 18.3.31
@@ -912,6 +915,9 @@ packages:
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
+  '@types/node@22.20.1':
+    resolution: {integrity: sha512-EANqOCF9QFyra+4pfxUcX9STKJpCLjMbObVzljIJomAWSnuSIEAvyzEU53GaajbXJEgdh0iEcPL+DGvpUd4k1Q==}
+
   '@types/prop-types@15.7.15':
     resolution: {integrity: sha512-F6bEyamV9jKGAFBEmlQnesRPGOQqS2+Uwi0Em15xenOxHaf2hv6L8YCVn3rPdPJOiJfPiCnLIRyvwVaqMY3MIw==}
 
@@ -963,6 +969,9 @@ packages:
     resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  undici-types@6.21.0:
+    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
   use-sync-external-store@1.2.0:
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
@@ -1803,6 +1812,10 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
+  '@types/node@22.20.1':
+    dependencies:
+      undici-types: 6.21.0
+
   '@types/prop-types@15.7.15': {}
 
   '@types/react-dom@19.2.5(@types/react@18.3.31)':
@@ -1868,6 +1881,8 @@ snapshots:
       loose-envify: 1.4.0
 
   typescript@5.9.3: {}
+
+  undici-types@6.21.0: {}
 
   use-sync-external-store@1.2.0(react@18.3.1):
     dependencies:

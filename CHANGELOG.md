@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.5.0] - 2026-08-26
+
+### Changed
+
+- **收藏数据不再写入 `settings.yaml`**：移除 Host 侧 settings 命名空间注册，数据改为持久化到 `$DSH_HOME/storages/dsh-my-favorites.json`（原子写、仅属主可访问、单写链串行化）。
+- 客户端与宿主的通信从 `settingsScope` 迁移到 Typert Remote RPC：Host 新增手写 `./typert` 清单（`lib/typert.host.js`，由 typert-loader 自动注册）并提供 `myFavorites` 服务（`getState` / `setField`），客户端经 `ctx.remote.$mount` + `remote.myFavorites.*` 读写，`settingsScope` 契约保持不变。
+- 从 0.4.x 升级时，原有 `settings.yaml` 中 `my-favorites` 段的数据需一次性迁移到 `~/.dsh/storages/dsh-my-favorites.json`（本机已完成迁移；插件本身不再读写 settings.yaml）。
+- 依赖调整：移除 `@deepseek-ai/dsh-settings` 与 `@deepseek-ai/schemastery`，新增 `zod`（wire schema）与 `@deepseek-ai/dsh-home-paths`（存储路径解析）。
+
 ## [0.4.1] - 2026-08-26
 
 ### Added

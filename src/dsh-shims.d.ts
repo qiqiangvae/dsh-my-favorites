@@ -1,8 +1,5 @@
-declare module '@deepseek-ai/dsh-settings' {
-  export function settingsNamespace(name: string): string;
-}
-
-declare module '@deepseek-ai/schemastery' {
-  const z: any;
-  export default z;
+declare module '@deepseek-ai/dsh-home-paths' {
+  /** 解析 $DSH_HOME（或 ~/.dsh）下路径：dshHomePath('storages', 'dsh-my-favorites.json')。 */
+  export function dshHomePath(...segments: string[]): string;
+  export function resolveDshHome(configured?: string, env?: Record<string, string | undefined>): string;
 }
