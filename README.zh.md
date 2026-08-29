@@ -2,6 +2,8 @@
 
 DSH Desktop 的本机收藏插件。
 
+> **兼容性**：要求 DSH ≥ `v0.1.2-alpha.1`，**不兼容 `v0.1.1-rc.2` 及更早版本**（v0.1.2-alpha.1 移除了 `dsh-client-runtime`，`createSnapshotStore` 迁入新私有包 `dsh-client-store`）。
+
 - 在会话标题栏 Preset 后用星标收藏或取消收藏会话。
 - 侧栏「新会话」按钮下方的「收藏」入口提供会话收藏与网址收藏。
 - 快捷键切换：快速按 `⌘+⌥+`` `（macOS）/ `Ctrl+`` `（其它平台）切回上一个收藏会话；长按弹出切换列表。

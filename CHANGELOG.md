@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.5.2] - 2026-08-29
+
+### Changed
+
+- 会话收藏夹中「当前会话」的高亮由「标题字变品牌蓝」改为「整行常驻 hover 背景」：与鼠标悬浮同一背景色，选中后保持该背景，视觉更一致、不再强调字体颜色。
+- 折叠头标题由「会话 (N)」改为「收藏会话 (N)」。
+- 折叠头图标由「金色 ★ + 灰色 › 箭头」改为 DSH 官方「文件夹关/开」图标（`IconFolderClose16` ↔ `IconFolderOpen16`）：展开/收起靠同一文件夹对象的开合状态区分，去掉黄色星标与冗余箭头，颜色改用主文本色。
+- 依赖新增 `@deepseek-ai/dsh-client-ui-primitives`（官方图标集），并在 README 显式声明兼容性：要求 DSH ≥ `v0.1.2-alpha.1`，不兼容 `v0.1.1-rc.2` 及更早版本。
+
 ## [0.5.1] - 2026-08-29
 
 ### Fixed
