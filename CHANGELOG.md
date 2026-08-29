@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.5.1] - 2026-08-29
+
+### Fixed
+
+- 适配 DSH `v0.1.2-alpha.1` 的破坏性更新：`@deepseek-ai/dsh-client-runtime` 包已被移除（`createSnapshotStore` 合并进新的私有包 `@deepseek-ai/dsh-client-store`，并从包根导出，不再有 `/client` 子路径）。客户端入口 `src/client.tsx` 的导入、`package.json` 的 `dsh.client.inject` 与 `peerDependencies` 全部改为 `@deepseek-ai/dsh-client-store`，并将相关依赖版本对齐到 `0.1.2-alpha.1`。
+- 为缺失类型声明的 `@deepseek-ai/dsh-client-store` 增加 `src/dsh-shims.d.ts` 垫片（与宿主编译产物签名一致），`pnpm run typecheck` 恢复通过。
+
 ## [0.5.0] - 2026-08-26
 
 ### Changed

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import * as ReactDOM from 'react-dom';
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-runtime/client';
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store';
 import { favoritesFieldSchema, favoritesFieldValueSchema, favoritesStateSchema } from './schema.js';
 import { MIN_RECENT, MAX_RECENT, DEFAULT_RECENT } from './constants.js';
 
