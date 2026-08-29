@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.5.3] - 2026-08-29
+
+### Fixed
+
+- 修复 `dsh plugin add` 安装失败（`ERR_PNPM_NO_MATCHING_VERSION`）：`0.5.2` 把 `@deepseek-ai/dsh-home-paths@0.1.2-alpha.1` 写进了 `dependencies`，且把五个 `@deepseek-ai/dsh-client-*@0.1.2-alpha.1` 写进 `peerDependencies`，而这些 DSH 私有包均未发布到公共 npm，导致 pnpm 无法解析。现从 `dependencies` 移除 `dsh-home-paths`、移除全部 `peerDependencies`（这些包运行时由 DSH 宿主注入，构建时已按 `external` 处理，无需插件声明为可安装依赖）。版本升至 `0.5.3`。
+
 ## [0.5.2] - 2026-08-29
 
 ### Changed

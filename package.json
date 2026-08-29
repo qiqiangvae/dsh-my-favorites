@@ -1,6 +1,6 @@
 {
   "name": "dsh-my-favorites",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Session and URL favorites for DeepSeek Harness Desktop",
   "license": "MIT",
   "repository": {
@@ -42,16 +42,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-home-paths": "0.1.2-alpha.1",
     "react": "18.3.1",
     "zod": "^4.4.3"
-  },
-  "peerDependencies": {
-    "@deepseek-ai/dsh-client-store": "0.1.2-alpha.1",
-    "@deepseek-ai/dsh-client-ui-conversation": "0.1.2-alpha.1",
-    "@deepseek-ai/dsh-client-ui-settings": "0.1.2-alpha.1",
-    "@deepseek-ai/dsh-client-ui-sidebar": "0.1.2-alpha.1",
-    "@deepseek-ai/dsh-client-ui-primitives": "0.1.2-alpha.1"
   },
   "devDependencies": {
     "@types/node": "^22.20.1",

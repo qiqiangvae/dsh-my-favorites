@@ -2,7 +2,7 @@
 
 DSH Desktop 的本机收藏插件。
 
-> **兼容性**：要求 DSH ≥ `v0.1.2-alpha.1`，**不兼容 `v0.1.1-rc.2` 及更早版本**（v0.1.2-alpha.1 移除了 `dsh-client-runtime`，`createSnapshotStore` 迁入新私有包 `dsh-client-store`）。
+> **兼容性**：要求 DSH ≥ `v0.1.2-alpha.1`，**不兼容 `v0.1.1-rc.2` 及更早版本**（v0.1.2-alpha.1 移除了 `dsh-client-runtime`，`createSnapshotStore` 迁入新私有包 `dsh-client-store`）。这些 `@deepseek-ai/dsh-*` 私有包未发布到公共 npm、运行时由 DSH 宿主提供，插件不在 `dependencies`/`peerDependencies` 里声明它们，`dsh plugin add` 走公共 registry 即可正常安装。
 
 - 在会话标题栏 Preset 后用星标收藏或取消收藏会话。
 - 侧栏「新会话」按钮下方的「收藏」入口提供会话收藏与网址收藏。

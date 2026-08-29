@@ -6,7 +6,7 @@
 
 - 本插件要求 **DSH ≥ `v0.1.2-alpha.1`**。
 - **不兼容 DSH `v0.1.1-rc.2` 及更早版本**：v0.1.2-alpha.1 存在破坏性更新，`@deepseek-ai/dsh-client-runtime` 已被移除，`createSnapshotStore` 迁入新私有包 `@deepseek-ai/dsh-client-store`，插件客户端已按新包名导出适配。
-- `@deepseek-ai/dsh-client-*` 与 `dsh-home-paths@0.1.2-alpha.1` 均为 DSH 私有包、未发布到公共 npm，运行时由 DSH 自身编译产物解析；请使用对应版本的 DSH Desktop 安装本插件。
+- `@deepseek-ai/dsh-client-*` 与 `dsh-home-paths` 均为 DSH 私有包、未发布到公共 npm，运行时由 DSH 自身编译产物解析；插件不把它们声明为可安装依赖（`dependencies`/`peerDependencies` 均不写入），因此 `dsh plugin add` 走公共 registry 也能正常安装。请使用对应版本的 DSH Desktop 安装本插件。
 
 ## 功能
 
